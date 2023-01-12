@@ -1,14 +1,21 @@
 #ifndef __HISTORICO_H__
 #define __HISTORICO_H__
+#include "stack.h"
 
-typedef struct {
-  char * _last_record;
+typedef struct
+{
+  Stack *stack;
+  int size;
+  int capacity;
 } History;
 
-void setRecord(History * history, char record[]);
-char * getRecord(History * history);
-History * readHistory();
-void writeHistory(History * history);
-void freeHistory(History * history);
+History *history_create();
+void history_setRecord(History *history, char *record);
+char *history_getRecord(History *history);
+History *history_read();
+void history_write(History *history);
+void history_print(History *history);
+void history_free(History *history);
+void history_realloc(History *history, int newCapacity);
 
 #endif //__HISTORICO_H__

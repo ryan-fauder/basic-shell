@@ -8,12 +8,12 @@ typedef struct
   int capacity;
 } Stack;
 
-Stack *createStack(int capacity);
-void pushStack(Stack *stack, char *value);
-char *getStack(Stack *stack);
-char *popStack(Stack *stack);
-void printStack(Stack *stack);
-void freeStack(Stack *stack);
-void reallocStack(Stack *stack, int newCapacity);
+Stack *stack_create(int capacity);
+void stack_push(Stack *stack, char *value);
+char *stack_get(Stack *stack);
+char *stack_pop(Stack *stack);
+void stack_print(Stack *stack);
+void stack_free(Stack *stack);
+void stack_realloc(Stack *stack, int newCapacity);
 
 #endif //__STACK_H__

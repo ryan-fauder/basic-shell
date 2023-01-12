@@ -6,19 +6,24 @@
 
 int main(int argc, char const *argv[])
 {
-  Stack * s = createStack(3);
-  char * c = strAlloc();
-  strcpy(c, "ELEMENT 1");
-  pushStack(s, c );
-  pushStack(s, "ELEMENT 2");
-  pushStack(s, "ELEMENT 3");
-  reallocStack(s, 5);
-  popStack(s);
-  pushStack(s, "ELEMENT 4");
-  pushStack(s, "ELEMENT 5");
-  printStack(s);
-  
-  freeStack(s);
+  History * history = history_create();
+  printf("%s\n", history_getRecord(history));
+  history_setRecord(history, "ADEDONHA");
+  printf("%s\n", history_getRecord(history));
+  history_setRecord(history, "OBABA");
+  printf("%s\n", history_getRecord(history));
+  history_setRecord(history, "OBABA");
+  printf("%s\n", history_getRecord(history));
+  history_setRecord(history, "ADEDONHADO");
+  printf("%s\n", history_getRecord(history));
+  history_print(history);
+  history_write(history);
+  printf("PRINT AFTER WRITING\n");
+  history_print(history);
+  history = history_read();
+  history_print(history);
+
+  history_free(history);
   return 0;
   
 }

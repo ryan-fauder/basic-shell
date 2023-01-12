@@ -1,22 +1,24 @@
-#include "stack.h"
-#include "utils.h"
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-Stack *createStack(int capacity)
+#include "stack.h"
+#include "utils.h"
+
+Stack *stack_create(int capacity)
 {
   Stack *stack = (Stack *)malloc(sizeof(Stack));
   stack->size = 0;
   stack->top = -1;
   stack->capacity = capacity;
-  stack->items = (char **)malloc(sizeof(char*) * capacity);
+  stack->items = (char **)malloc(sizeof(char *) * capacity);
   for (int i = 0; i < capacity; i++)
   {
     stack->items[i] = (char *)strAlloc();
   }
   return stack;
 }
-void pushStack(Stack *stack, char *value)
+
+void stack_push(Stack *stack, char *value)
 {
   if (stack->size >= stack->capacity)
   {
@@ -28,7 +30,17 @@ void pushStack(Stack *stack, char *value)
   stack->top += 1;
   stack->size += 1;
 }
-char *getStack(Stack *stack)
+
+char *stack_at(Stack *stack, int index)
+{
+  if (stack->top < 0)
+  {
+    return NULL;
+  }
+  return stack->items[index];
+}
+
+char *stack_get(Stack *stack)
 {
   if (stack->top < 0)
   {
@@ -37,7 +49,7 @@ char *getStack(Stack *stack)
   return stack->items[stack->top];
 }
 
-char *popStack(Stack *stack)
+char *stack_pop(Stack *stack)
 {
   if (stack->top < 0)
     return NULL;
@@ -47,7 +59,7 @@ char *popStack(Stack *stack)
   return element;
 }
 
-void printStack(Stack *stack)
+void stack_print(Stack *stack)
 {
   for (int i = stack->top; i >= 0; i--)
   {
@@ -55,7 +67,7 @@ void printStack(Stack *stack)
   }
 }
 
-void freeStack(Stack *stack)
+void stack_free(Stack *stack)
 {
   for (int i = 0; i < stack->capacity; i++)
   {
@@ -65,7 +77,8 @@ void freeStack(Stack *stack)
   free(stack->items);
   free(stack);
 }
-void reallocStack(Stack *stack, int newCapacity)
+
+void stack_realloc(Stack *stack, int newCapacity)
 {
   int currentCapacity = stack->capacity;
 
@@ -74,7 +87,7 @@ void reallocStack(Stack *stack, int newCapacity)
     return;
 
   stack->capacity = newCapacity;
-  char **temp = (char **)realloc(stack->items, sizeof(char*) * newCapacity);
+  char **temp = (char **)realloc(stack->items, sizeof(char *) * newCapacity);
   if (temp != NULL)
   {
     stack->items = temp;
