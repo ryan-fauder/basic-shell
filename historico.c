@@ -5,7 +5,7 @@
 #include <stdlib.h>
 
 const char _HISTORY_FILENAME[] = ".meushell.hst";
-const int _HISTORY_INITIAL_CAPACITY = 128;
+const int _HISTORY_INITIAL_CAPACITY = 1;
 
 void history_setRecord(History *history, char *record)
 {
@@ -105,4 +105,5 @@ void history_print(History *history)
 void history_realloc(History *history, int newCapacity)
 {
   stack_realloc(history->stack, newCapacity);
+  history->capacity = newCapacity;
 }
