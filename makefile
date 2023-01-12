@@ -7,6 +7,6 @@ OPTIONS = -g -O0
 
 LIBRARIES = -lm
 
-MODULES = historico.h historico.c
+MODULES = historico.h historico.c stack.h stack.c utils.h utils.c
 % : 
 	gcc $@.c $(MODULES) $(OPTIONS) -o main $(LIBRARIES)
