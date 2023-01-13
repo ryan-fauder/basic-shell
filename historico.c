@@ -123,10 +123,10 @@ void history_test(){
   History * history = history_create();
 
   printf("%s\n", history_getRecord(history));
-  history_setRecord(history, "COMMAND 1");
-  history_setRecord(history, "COMMAND 2");
-  history_setRecord(history, "COMMAND 2");
-  history_setRecord(history, "COMMAND 3");
+  history_setRecord(history, str_get("COMMAND 1"));
+  history_setRecord(history, str_get("COMMAND 2"));
+  history_setRecord(history, str_get("COMMAND 2"));
+  history_setRecord(history, str_get("COMMAND 3"));
   printf("%s\n", history_getRecord(history));
   history_print(history);
   history_write(history);

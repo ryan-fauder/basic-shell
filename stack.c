@@ -12,11 +12,6 @@ Stack *stack_create(int capacity)
   stack->top = -1;
   stack->capacity = capacity;
   stack->items = (char **)malloc(sizeof(char *) * capacity);
-
-  for (int i = 0; i < capacity; i++)
-  {
-    stack->items[i] = (char *)str_alloc();
-  }
   return stack;
 }
 
@@ -28,7 +23,7 @@ void stack_push(Stack *stack, char *value)
     return;
   }
   int index = stack->size;
-  strcpy(stack->items[index], value);
+  stack->items[index] = value;
   stack->top += 1;
   stack->size += 1;
 }
@@ -93,10 +88,6 @@ void stack_realloc(Stack *stack, int newCapacity)
   if (temp != NULL)
   {
     stack->items = temp;
-    for (int i = currentCapacity; i < newCapacity; i++)
-    {
-      stack->items[i] = (char *)str_alloc();
-    }
   }
   else
   {
