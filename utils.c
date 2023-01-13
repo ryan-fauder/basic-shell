@@ -1,7 +1,13 @@
 #include "utils.h"
 #include <stdlib.h>
-
+#include <string.h>
 extern const int _COMMAND_SIZE;
+
+char * str_get(char *str){
+  char *buffer = (char *) malloc(_COMMAND_SIZE);
+  strcpy(buffer, str);
+  return buffer;
+}
 char * str_alloc(){
   return (char *) malloc(_COMMAND_SIZE);
 }

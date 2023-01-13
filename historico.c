@@ -119,6 +119,7 @@ void history_realloc(History *history, int newCapacity)
 }
 
 void history_test(){
+  printf("TESTING - HISTORY\n");
   History * history = history_create();
 
   printf("%s\n", history_getRecord(history));
