@@ -4,20 +4,23 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-const char _HISTORY_FILENAME[] = ".meushell.hst";
-const int _HISTORY_INITIAL_CAPACITY = 1;
+extern const char _HISTORY_FILENAME[];
+extern const int _HISTORY_INITIAL_CAPACITY;
 
 void history_setRecord(History *history, char *record)
 {
   // If last_record == record, so dont change the record
   if (strcmp(history_getRecord(history), record) == 0)
     return;
+
+  
   if (history->capacity == history->size)
   {
     history_realloc(history, history->capacity + _HISTORY_INITIAL_CAPACITY);
   }
-  history->size++;
+
   stack_push(history->stack, record);
+  history->size++;
 }
 
 char *history_getRecord(History *history)
@@ -29,66 +32,73 @@ char *history_getRecord(History *history)
 History *history_create()
 {
   History *history = (History *)malloc(sizeof(History));
+
   history->stack = stack_create(_HISTORY_INITIAL_CAPACITY);
   history->size = 0;
   history->capacity = _HISTORY_INITIAL_CAPACITY;
+
   return history;
 }
 
 History *history_read()
 {
   History *history = history_create();
-  FILE *f;
-  f = fopen(_HISTORY_FILENAME, "r+");
+  FILE *stream;
+  stream = fopen(_HISTORY_FILENAME, "r+");
 
-  if (f == NULL)
+  if (stream == NULL)
   {
-    printf("Falha");
-    f = fopen(_HISTORY_FILENAME, "w");
+    printf("CREATING FILE FOR HISTORY\n");
+    fclose(stream);
+
+    stream = fopen(_HISTORY_FILENAME, "w");
+    fclose(stream);
+    
     return history;
   }
 
   int size;
-  char *record = strAlloc();
+  char *buffer = str_alloc();
 
-  fscanf(f, "%d", &size);
-
-  fscanf(f, "%[^\n]", record);
-  history_realloc(history, size);
-  for (int i = 0; i < history->capacity; i++)
+  while(fscanf(stream, "%[^\n]", buffer) == 1)
   {
-    fscanf(f, "%[^\n]", record);
-    history_setRecord(history, record);
-    if (record == NULL)
+    fscanf(stream, "%*c");
+    if (buffer == NULL)
     {
-      printf("ERROR - HISTORY - COMMAND NOT FOUND ON READING FILE");
+      printf("ERROR - HISTORY - COMMAND NOT FOUND ON READING FILE\n");
+      fclose(stream);
       return NULL;
     }
+    history_setRecord(history, buffer);
   }
 
-  fclose(f);
+  if (!feof(stream)){
+    // IF IT'S NOT THE EOF
+    printf("ERROR - HISTORY - WRONG FORMAT FOR HISTORY FILE\n");
+    // RETURNS HISTORY
+  }
+
+  fclose(stream);
   return history;
 }
 
 void history_write(History *history)
 {
-  FILE *f;
+  FILE *stream;
 
-  f = fopen(_HISTORY_FILENAME, "w");
-  fprintf(f, "%d\n", history->size);
-  fprintf(f, "HISTORY: \n");
+  stream = fopen(_HISTORY_FILENAME, "w");
   for (int i = 0; i < history->size; i++)
   {
-    char *command = stack_pop(history->stack);
+    char *command = stack_at(history->stack, i);
     if (command == NULL)
     {
       printf("ERROR - HISTORY - COMMAND NOT FOUND IN STACK");
       return;
     }
-    fprintf(f, "%s\n", command);
+    fprintf(stream, "%s\n", command);
   }
 
-  fclose(f);
+  fclose(stream);
 }
 
 void history_free(History *history)
@@ -106,4 +116,22 @@ void history_realloc(History *history, int newCapacity)
 {
   stack_realloc(history->stack, newCapacity);
   history->capacity = newCapacity;
+}
+
+void history_test(){
+  History * history = history_create();
+
+  printf("%s\n", history_getRecord(history));
+  history_setRecord(history, "COMMAND 1");
+  history_setRecord(history, "COMMAND 2");
+  history_setRecord(history, "COMMAND 2");
+  history_setRecord(history, "COMMAND 3");
+  printf("%s\n", history_getRecord(history));
+  history_print(history);
+  history_write(history);
+  printf("PRINT AFTER WRITING\n");
+  history = history_read();
+  history_print(history);
+
+  history_free(history);
 }

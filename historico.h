@@ -17,5 +17,6 @@ void history_write(History *history);
 void history_print(History *history);
 void history_free(History *history);
 void history_realloc(History *history, int newCapacity);
+void history_test();
 
 #endif //__HISTORICO_H__

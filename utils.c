@@ -1,10 +1,10 @@
 #include "utils.h"
 #include <stdlib.h>
 
-const int _COMMAND_SIZE = 2048;
-char * strAlloc(){
+extern const int _COMMAND_SIZE;
+char * str_alloc(){
   return (char *) malloc(_COMMAND_SIZE);
 }
-void strFree(char * str){
+void str_free(char * str){
   free(str);
 }

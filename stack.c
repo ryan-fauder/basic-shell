@@ -7,13 +7,15 @@
 Stack *stack_create(int capacity)
 {
   Stack *stack = (Stack *)malloc(sizeof(Stack));
+
   stack->size = 0;
   stack->top = -1;
   stack->capacity = capacity;
   stack->items = (char **)malloc(sizeof(char *) * capacity);
+
   for (int i = 0; i < capacity; i++)
   {
-    stack->items[i] = (char *)strAlloc();
+    stack->items[i] = (char *)str_alloc();
   }
   return stack;
 }
@@ -33,7 +35,7 @@ void stack_push(Stack *stack, char *value)
 
 char *stack_at(Stack *stack, int index)
 {
-  if (stack->top < 0)
+  if (index < 0 || index > stack->top)
   {
     return NULL;
   }
@@ -71,7 +73,7 @@ void stack_free(Stack *stack)
 {
   for (int i = 0; i < stack->capacity; i++)
   {
-    strFree(stack->items[i]);
+    str_free(stack->items[i]);
     stack->items[i] = NULL;
   }
   free(stack->items);
@@ -93,11 +95,11 @@ void stack_realloc(Stack *stack, int newCapacity)
     stack->items = temp;
     for (int i = currentCapacity; i < newCapacity; i++)
     {
-      stack->items[i] = (char *)strAlloc();
+      stack->items[i] = (char *)str_alloc();
     }
   }
   else
   {
-    printf("UNABLE TO REALLOCATE MEMORY");
+    printf("ERROR - UNABLE TO REALLOCATE MEMORY");
   }
 }
