@@ -15,8 +15,11 @@ char *env_getVar(Env *env, char *key){
 	char * value = NULL;
 
 	for(i = 0; i < env->size; i++){
-		maps = VARMAP[i];
-		value = map_get(maps, key);
+		value = map_get(VARMAP[i], key);
+	}
+	if(value == NULL){
+		printf("variable not found\n");
+		return " ";
 	}
 
 	return value;
@@ -52,4 +55,5 @@ void env_free(Env *env){
 	map_free(env->VARMAP);
 	free(env);
 }
+
 
