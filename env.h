@@ -2,11 +2,11 @@
 #define __ENV_H__
 #include "map.h"
 
-typeded struct{
-	Map *VARMAP;
+typedef struct{
+	Map *varmap;
 	int size;
 	int capacity; 
-}Env;
+} Env;
 
 Env *env_create();
 char *env_getVar(Env *env, char *key);
