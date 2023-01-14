@@ -5,7 +5,7 @@
 
 Env *env_create(){
 	Env *env = (Env *)malloc(sizeof(Env));
-	env->VARMAP = map_create(capacidade_env); 
+	env->VARMAP = map_create(_HISTORY_INITIAL_CAPACITY); 
 	env->size = 0;
 	env->capacity = map.capacity;
 }
