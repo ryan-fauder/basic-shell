@@ -45,5 +45,3 @@ void env_free(Env *env){
 	map_free(env->varmap);
 	free(env);
 }
-
-

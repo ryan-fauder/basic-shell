@@ -13,7 +13,6 @@ Map *map_create(int capacity)
   map->pairs = (Pair **)malloc(sizeof(Pair *) * capacity);
   return map;
 }
-
 void map_set(Map *map, char *key, char *value)
 {
   if (map->size >= map->capacity)
