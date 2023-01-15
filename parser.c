@@ -4,7 +4,8 @@
 char parser_controller(Env *env, char *command)
 {
   char **tokens = tokenize(command);
-  // if(tokens->size < 1) return 0;
+  if(tokens->size < 1) return 0;
+
   if (strcmp(tokens[0], "cd"))
   {
     parser_changeDir(env, tokens);
@@ -59,7 +60,14 @@ void parser_amb(Env *env, char **tokens, char *command)
   }
   else
   {
+    parser_amb_set(env, tokens);
+  }
+  return;
+}
+void command_amb_set(Env *env, char **tokens){
     // Check about spaces into "".
+    const char**attrb = tokenize(tokens[1], "=");
+    
     tokens = tokenize(command, "=");
     char **temp = tokenize(tokens[0], " ");
     tokens[0] = temp[1];
@@ -69,8 +77,6 @@ void parser_amb(Env *env, char **tokens, char *command)
       return;
     }
     command_amb_set(env, tokens[0], tokens[1]);
-  }
-  return;
 }
 void parser_ajuda()
 {
@@ -86,5 +92,5 @@ void parser_externCommand(Env *env, char **tokens)
 }
 void parser_changeDir(Env *env, char **tokens)
 {
-  command_changeDir(env, tokens);
+  command_changeDir(env, tokens[1]);
 }

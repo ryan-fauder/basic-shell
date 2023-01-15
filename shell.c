@@ -18,5 +18,4 @@ void interpreter(Env *env, History *history, FILE *stream)
     if(parser_controller(input) == NULL) break;
   }
   return;
-
 }
