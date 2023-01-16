@@ -12,6 +12,7 @@ char * str_get(char *str){
 char * str_alloc(){
   return (char *) malloc(_COMMAND_SIZE);
 }
+
 void str_free(char * str){
   free(str);
 }

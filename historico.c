@@ -112,10 +112,10 @@ void history_print(History *history)
   stack_print(history->stack);
 }
 
-void history_realloc(History *history, int newCapacity)
+void history_realloc(History *history, int new_capacity)
 {
-  stack_realloc(history->stack, newCapacity);
-  history->capacity = newCapacity;
+  stack_realloc(history->stack, new_capacity);
+  history->capacity = new_capacity;
 }
 
 void history_test(){

@@ -15,6 +15,6 @@ char *stack_at(Stack *stack, int index);
 char *stack_pop(Stack *stack);
 void stack_print(Stack *stack);
 void stack_free(Stack *stack);
-void stack_realloc(Stack *stack, int newCapacity);
+void stack_realloc(Stack *stack, int new_capacity);
 
 #endif //__STACK_H__

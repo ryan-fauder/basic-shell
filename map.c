@@ -78,16 +78,16 @@ void map_free(Map *map)
   free(map->pairs);
   free(map);
 }
-void map_realloc(Map *map, int newCapacity)
+void map_realloc(Map *map, int new_capacity)
 {
   int currentCapacity = map->capacity;
 
   // Cannot reduce a capacity of a map.
-  if (newCapacity <= currentCapacity)
+  if (new_capacity <= currentCapacity)
     return;
 
-  map->capacity = newCapacity;
-  Pair **temp = (Pair **)realloc(map->pairs, sizeof(Pair *) * newCapacity);
+  map->capacity = new_capacity;
+  Pair **temp = (Pair **)realloc(map->pairs, sizeof(Pair *) * new_capacity);
   if (temp != NULL)
     map->pairs = temp;
   else
