@@ -2,6 +2,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include "read.h"
+#include "utils.h"
 
 #define LENGTH_INPUT 50
 
@@ -15,11 +16,6 @@ void clear_input() {
   }
 }
 
-int string_length(char *str) {
-  int i = 0;
-  while(str[i] != '\0') i++;
-  return i;
-}
 
 int space_counter(char *str) {
   int i = 0, count = 0;
@@ -33,7 +29,7 @@ int space_counter(char *str) {
 char** tokenize (char *command, tokens *t) {
   char *pt;
   char **vector_tokenize;
-  int length = string_length(command);
+  int length = str_length(command);
   int space_count = space_counter(command);
   int size_vector = 0;
 

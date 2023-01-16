@@ -1,39 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <unistd.h> // fork
+#include <unistd.h>
 #include <sys/types.h>
 #include <sys/wait.h>
 
-void command_ajuda();
-void command_amb_getAll();
-void command_amb_getVar(char * nameVar);
-void command_amb_setVar(char * nameVar, char * valueVar);
-void command_externCommand(char * command);
-void command_changeDir(char * path);
-void command_limpa();
-void command_print_history(/*History * history*/);
-void command_sair();
-
-int main(int argc, char *argv[], char *envp[]) {
-  char input[32];
-
-  while(1) {
-
-    printf("Digite o comando : ");
-    scanf(" %[^\n]s", input);
-
-    if(strcmp(input, "sair") == 0) {
-      command_sair();
-    } else if(strcmp(input, "limpa") == 0) {
-      printf("Limpando ...");
-      command_limpa(argv, envp);
-    } else {
-      printf("Comando não encontrado");
-    }
-  }
-  return 0;
-}
+#include "commands.h"
+#include "utils.h"
 
 void command_ajuda() {
   return ;
@@ -51,6 +24,12 @@ void command_externCommand(char * command) {
   return ;
 }
 void command_changeDir(char * path) {
+  char *currentDir = "/home/gabriel/Downloads";
+  int strLength = str_length(path);
+  if(strLength == 0) return ;
+  for(int i = 0; i < strLength; i++) {
+    printf("%c", path[i]);
+  }
   return ;
 }
 void command_limpa() {
@@ -70,7 +49,7 @@ void command_print_history(/*History * history*/) {
   return ;
 }
 void command_sair() {
-  printf("Saindo ...");
+  printf("Saindo ...\n");
   exit (1) ;
   return ;
 }
