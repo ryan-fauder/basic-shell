@@ -16,7 +16,7 @@ int main(int argc, char *argv[], char *envp[]) {
     printf("gabriel@gabriel-dev: ");
     scanf(" %[^\n]s", input);
 
-    tokenize(input, &r);
+    tokenize(input, " ", &r);
 
     if(!r.length) continue;
     char *command = r.tokens[0];

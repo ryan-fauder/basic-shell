@@ -3,47 +3,24 @@
 #include <stdlib.h>
 #include "read.h"
 #include "utils.h"
-
-#define LENGTH_INPUT 50
-
-char input[LENGTH_INPUT];
-
-void clear_input() {
-  int i = 0;
-  while(i < LENGTH_INPUT) {
-    input[i] = '\0';
-    i++;
-  }
-}
+extern const int _COMMAND_SIZE;
 
 
-int space_counter(char *str) {
-  int i = 0, count = 0;
-  while(str[i] != '\0') {
-    if(str[i] == ' ') count ++;
-    i++;
-  }
-  return count;
-}
-
-char** tokenize (char *command, reader *t) {
+void tokenize (char *command, char *separator, reader *t) {
   char *pt;
-  int length = str_length(command);
-  int space_count = space_counter(command);
-  int size_vector = 0;
-
-  size_vector = space_count + 1;
+  int separator_count = separator_counter(command, separator);
+  int size_vector = separator_count + 1;
  
   char **vector = (char **) malloc(size_vector*sizeof(char*));
   for(int i = 0; i < size_vector; i++) {
-    vector[i] = (char*) malloc(LENGTH_INPUT*sizeof(char));
+    vector[i] = (char*) malloc(_COMMAND_SIZE*sizeof(char));
   }
-  pt = strtok (command, " ");
+  pt = strtok (command, separator);
   strcpy(vector[0], pt);
 
   int i = 1;
   while(pt != NULL) {
-    pt = strtok (NULL, " ");
+    pt = strtok (NULL, separator);
     if(pt == NULL) break;
     
     strcpy(vector[i], pt);
@@ -54,7 +31,7 @@ char** tokenize (char *command, reader *t) {
   t->length = i;
 }
 
-char* read_line() {
+char* read_line(char *input) {
   scanf("%[^\n]s", input);
   return input;
 }

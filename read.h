@@ -8,8 +8,13 @@ typedef struct str_tokens {
 
 void clear_input();
 int space_counter(char *);
-char** tokenize (char *, reader *);
+
+reader* createReader();
+void pushReader(reader *r);
+void popReader(reader *r);
+void tokenize (char *, char *, reader *);
 char* read_line();
+
 #endif //__READ_H__
 
 

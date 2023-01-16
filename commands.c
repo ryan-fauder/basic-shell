@@ -7,6 +7,7 @@
 
 #include "commands.h"
 #include "utils.h"
+#include "read.h"
 
 void command_ajuda() {
   return ;
