@@ -11,10 +11,6 @@
 #include "stack.h"
 #include "utils.h"
 
-void test_env();
-char *env_get(Map* map, char*key);
-char *read_var(Map *map, char *begin, char *value, int *index);
-char *checkForVariable(Map *map, char *str);
 
 int main(int argc, char const *argv[])
 {
@@ -24,8 +20,6 @@ int main(int argc, char const *argv[])
   test_env();
   return 0;
 }
-
-
 
 char *read_between(char *begin, char end, char *token, int *index)
 {
@@ -76,63 +70,6 @@ Stack *tokenize(char *str, char separator)
   printf("%s\n", token);
   stack_push(tokens, token);
   return tokens;
-}
-
-char *read_var(Map *map, char *begin, char *value, int *index){
-  begin++;
-  int i;
-  char *var = str_alloc();
-  for (i = 0; *begin != '\0'; begin++, i++)
-  {
-    if((tolower(*begin) < 'a' || tolower(*begin) > 'z') && (*begin < '0' || *begin > '9'))
-      break;
-    var[i] = *begin;
-  }
-  begin--;
-  printf("VAR: %s\n", var);
-  char *var_value = map_get(map, var);
-  printf("VAR_VALUE: %s\n", var_value);
-  i = *index;
-  printf("BEFORE VALUE: %s\n", value);
-  char *ptr = var_value;
-  for (; *ptr != '\0'; ptr++, i++){
-    value[i] = *ptr;
-    printf("- %c", value[i-1]);
-  }
-  printf("AFTER VALUE: %s\n", value);
-  *index = i;
-  return begin;
-}
-char *checkForVariable(Map *map, char *str){
-  char *c = str;
-  char *value = str_alloc();
-  int i = 0;
-  for (; *c != '\0'; c++, i++)
-  {
-    if (*c == '$')
-    { // c = \"
-      c = read_var(map, c, value, &i);
-    }
-    else value[i] = *c;
-    printf("%s\n", c);
-  }
-  printf("%s\n", value);
-  return value;
-}
-char *env_get(Map* map, char*key){
-  char * value;
-  value = map_get(map, key);
-  return checkForVariable(map, value);
-}
-
-void test_env(){
-  char * value = NULL;
-  Map *map = map_create(100);
-  map_set(map, str_get("DTA"), str_get("/home/ryan"));
-  map_set(map, str_get("DTA1"), str_get("/Doc/$DTA"));
-  map_set(map, str_get("DTA2"), str_get("$DTA/$DTA1/>"));
-	printf("RESULTADO: %s\n", env_get(map, str_get("DTA2")));
-	printf("RESULTADO: %s\n", map_get(map, str_get("DTA2")));
 }
 void test_tokenize(){
   FILE *stream = stdin;
