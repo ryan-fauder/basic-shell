@@ -26,7 +26,7 @@ int space_counter(char *str) {
   return count;
 }
 
-char** tokenize (char *command, tokens *t) {
+char** tokenize (char *command, reader *t) {
   char *pt;
   char **vector_tokenize;
   int length = str_length(command);
@@ -59,18 +59,4 @@ char** tokenize (char *command, tokens *t) {
 char* read_line() {
   scanf("%[^\n]s", input);
   return input;
-}
-
-int main() {
-  char *line;
-  tokens t;
-  clear_input();
-  line = read_line();
-  tokenize(line, &t);
-  
-  printf("Quantidade de Comandos : %d\n", t.length);
-  for(int i = 0; i < t.length; i++) {
-    printf("String [%s]\n", t.tokens[i]);
-  }
-  return 0;
 }
