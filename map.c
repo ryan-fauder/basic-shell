@@ -20,12 +20,34 @@ void map_set(Map *map, char *key, char *value)
     printf("ERROR - SET INTO MAP: MAP AT CAPACITY");
     return;
   }
+
   int index = map->size;
+  Pair *current_pair = map_pair_get(map, key);
   Pair *pair = pair_create(key, value);
 
-  map->pairs[index] = pair;
-  map->size += 1;
+  if(current_pair == NULL){
+    map->pairs[index] = pair;
+    map->size += 1;
+  }
+  else{
+    pair_set(current_pair, value);
+  }
 }
+
+Pair *map_pair_get(Map *map, char *key){
+  Pair *pair = NULL;
+  char *value = NULL;
+  for (int i = 0; i < map->size; i++)
+  {
+    pair = map->pairs[i];
+    value = pair_get(pair, key);
+    if (value != NULL)
+      break;
+    pair = NULL;
+  }
+  return pair;
+}
+
 char *map_get(Map *map, char *key)
 {
   Pair *pair = NULL;
@@ -79,6 +101,7 @@ void map_test(){
   map_set(map, str_get("CHAVE 3"), str_get("VALOR 3"));
   map_set(map, str_get("CHAVE 4"), str_get("VALOR 4"));
   map_print(map);
+  printf("\n");
   printf("%s\n", map_get(map, "CHAVE 4"));
   map_free(map);
 }

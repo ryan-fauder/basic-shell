@@ -7,6 +7,7 @@ typedef struct
 } Pair;
 
 Pair *pair_create(char *key, char *value);
+void pair_set(Pair *pair, char *value);
 char *pair_get(Pair *pair, char *key);
 void pair_print(Pair *pair);
 void pair_free(Pair *pair);

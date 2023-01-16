@@ -73,8 +73,7 @@ int main(int argc, char const *argv[])
     printf("    \\ > ");
     char *input = str_alloc();
     input[0] = 0;
-    if (fscanf(stream, "%[^\n]s", input) == EOF)
-      return NULL;
+    if (fscanf(stream, "%[^\n]s", input) == EOF) break;
     fscanf(stream, "%*c");
     printf("-- %s --\n", input);
     if (input == NULL)

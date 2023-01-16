@@ -10,6 +10,7 @@ typedef struct
 
 Map *map_create(int capacity);
 void map_set(Map *map, char *key, char *value);
+Pair *map_pair_get(Map *map, char *key);
 char *map_get(Map *map, char *key);
 void map_print(Map *map);
 void map_free(Map *map);

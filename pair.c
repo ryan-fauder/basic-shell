@@ -10,6 +10,10 @@ Pair *pair_create(char *key, char *value)
   pair->value = value;
   return pair;
 }
+void pair_set(Pair *pair, char *value){
+  str_free(pair->value);
+  pair->value = value;
+}
 char *pair_get(Pair *pair, char *key)
 {
   return (strcmp(pair->key, key) == 0) ? pair->value : NULL;
