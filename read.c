@@ -6,9 +6,9 @@
 extern const int _COMMAND_SIZE;
 
 
-void tokenize (char *command, char *separator, reader *t) {
+void tokenize (char *command, char separator, reader *t) {
   char *pt;
-  int separator_count = separator_counter(command, separator);
+  int separator_count =  char_counter(command, separator);
   int size_vector = separator_count + 1;
  
   char **vector = (char **) malloc(size_vector*sizeof(char*));

@@ -31,6 +31,15 @@ int space_counter(char *str) {
   return count;
 }
 
+int char_counter(char *str, char c) {
+  int i = 0, count = 0;
+  while(str[i] != '\0') {
+    if(str[i] == c) count ++;
+    i++;
+  }
+  return count;
+}
+
 int separator_counter(char *str, char* separator) {
   int count = 0;
   char *pt;
