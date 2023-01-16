@@ -8,7 +8,7 @@ extern const int _COMMAND_SIZE;
 
 void tokenize (char *command, char separator, reader *t) {
   char *pt;
-  int separator_count =  char_counter(command, separator);
+  int separator_count = char_counter(command, separator);
   int size_vector = separator_count + 1;
   printf("Tamanho vetor tokenized : %d\n", size_vector);
   char **vector = (char **) malloc(size_vector*sizeof(char*));
