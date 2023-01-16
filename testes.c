@@ -28,7 +28,7 @@ int main(int argc, char *argv[], char *envp[]) {
       command_limpa();
     } else if(strcmp(command, "cd") == 0) {
       if(r.length == 1) {
-        imprimirErro(" O COMANDO PRECISA DE UM PARAMETRO");
+        imprimirErro("O COMANDO PRECISA DE UM PARAMETRO");
         continue;
       }
       command_changeDir(r.tokens[1]);
