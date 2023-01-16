@@ -10,14 +10,15 @@
 #include "map.h"
 #include "stack.h"
 #include "utils.h"
-
+#include "env.h"
 
 int main(int argc, char const *argv[])
 {
   history_test();
   map_test();
   pair_test();
-  test_env();
+  env_test();
+  map_
   return 0;
 }
 
