@@ -27,8 +27,14 @@ void command_externCommand(char * command) {
 void command_changeDir(char * path) {
   char *currentDir = "/home/gabriel/Downloads";
   int strLength = str_length(path);
-  int count = 0;
   if(strLength == 0) return ;
+
+  reader read;
+  tokenize(path, '/', &read);
+
+  for(int i = 0; i < read.length; i++) {
+    printf("[%s]\n", read.tokens[i]);
+  }
   return ;
 }
 void command_limpa() {
