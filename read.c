@@ -28,7 +28,6 @@ int space_counter(char *str) {
 
 char** tokenize (char *command, reader *t) {
   char *pt;
-  char **vector_tokenize;
   int length = str_length(command);
   int space_count = space_counter(command);
   int size_vector = 0;
@@ -53,7 +52,6 @@ char** tokenize (char *command, reader *t) {
 
   t->tokens = vector;
   t->length = i;
-  return vector_tokenize;
 }
 
 char* read_line() {

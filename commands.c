@@ -26,10 +26,8 @@ void command_externCommand(char * command) {
 void command_changeDir(char * path) {
   char *currentDir = "/home/gabriel/Downloads";
   int strLength = str_length(path);
+  int count = 0;
   if(strLength == 0) return ;
-  for(int i = 0; i < strLength; i++) {
-    printf("%c", path[i]);
-  }
   return ;
 }
 void command_limpa() {
