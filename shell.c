@@ -13,9 +13,10 @@ void interpreter(Env *env, History *history, FILE *stream)
     printf("%s", nameShell);
     printf(" \\>");
     input = read_line();
-    if(input == EOF) break;
+    if(input == NULL) break;
     history_setRecord(history, input);
-    if(parser_controller(input) == NULL) break;
+    printf("%s", input);
+    //if(parser_controller(input) == NULL) break;
   }
   return;
 }

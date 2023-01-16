@@ -11,14 +11,18 @@
 #include "stack.h"
 #include "utils.h"
 #include "env.h"
-
+#include "shell.h"
 int main(int argc, char const *argv[])
 {
   history_test();
   map_test();
   pair_test();
   env_test();
-  map_
+  Env * env = env_create();
+  History * history = history_create();
+  FILE * stream = stdin;
+  env_setVar(env, "PRONTO", "~/home/");
+  interpreter(env, history, stream);
   return 0;
 }
 
@@ -41,7 +45,7 @@ char *read_between(char *begin, char end, char *token, int *index)
   printf("AFTER \": %s\n", token);
   return begin;
 }
-Stack *tokenize(char *str, char separator)
+Stack *tokenize1(char *str, char separator)
 {
   Stack *tokens = stack_create(100);
   char *c = str;
@@ -87,17 +91,17 @@ void test_tokenize(){
       break;
     if (strcmp("", input) == 0)
       continue;
-    tokens = tokenize(input, 32);
+    tokens = tokenize1(input, 32);
     stack_print(tokens);
   }
-  tokens = tokenize(stack_at(tokens, 1), '=');
+  tokens = tokenize1(stack_at(tokens, 1), '=');
   stack_print(tokens);
 }
 void test_command_externCommand()
 {
   Map *map = map_create(100);
   char *command = "ls";
-  map_set(map, str_get("DTA"), str_get("/home/ryan"));
+  map_set(map, str_get("DTA"), str_get("/home/"));
   char *arg = map_get(map, "DTA");
   char **args = (char **)malloc(sizeof(char *) * 32);
   int pid, status, ret;

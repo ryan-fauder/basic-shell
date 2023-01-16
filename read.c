@@ -34,8 +34,10 @@ void tokenize(Reader *reader, char *string, char separator)
   reader->length = i;
 }
 
-char *read_line(char *input)
+char *read_line()
 {
-  scanf("%[^\n]s", input);
+  char *input = str_alloc();
+  scanf("%[^\n]", input);
+  scanf("%*c");
   return input;
 }
