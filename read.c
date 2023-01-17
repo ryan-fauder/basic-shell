@@ -5,7 +5,6 @@
 #include "utils.h"
 extern const int _COMMAND_SIZE;
 
-
 void tokenize (char *command, char separator, reader *t) {
   char *pt;
   int separator_count = char_counter(command, separator);
@@ -33,8 +32,11 @@ void tokenize (char *command, char separator, reader *t) {
   }
 }
 
-char* read_line(char *input) {
-  scanf("%[^\n]s", input);
+char *read_line()
+{
+  char *input = str_alloc();
+  scanf("%[^\n]", input);
+  scanf("%*c");
   return input;
 }
 

@@ -1,8 +1,9 @@
 #ifndef __READ_H__
 #define __READ_H__
 
-typedef struct str_tokens {
-    char ** tokens;
+typedef struct str_tokens
+{
+    char **tokens;
     int length;
     int max_length;
 } reader;
@@ -19,5 +20,3 @@ void print_reader(reader *r);
 char* concatTokens(reader *r);
 
 #endif //__READ_H__
-
-

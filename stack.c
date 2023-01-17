@@ -75,16 +75,16 @@ void stack_free(Stack *stack)
   free(stack);
 }
 
-void stack_realloc(Stack *stack, int newCapacity)
+void stack_realloc(Stack *stack, int new_capacity)
 {
   int currentCapacity = stack->capacity;
 
   // Cannot reduce a capacity of a stack.
-  if (newCapacity <= currentCapacity)
+  if (new_capacity <= currentCapacity)
     return;
 
-  stack->capacity = newCapacity;
-  char **temp = (char **)realloc(stack->items, sizeof(char *) * newCapacity);
+  stack->capacity = new_capacity;
+  char **temp = (char **)realloc(stack->items, sizeof(char *) * new_capacity);
   if (temp != NULL)
   {
     stack->items = temp;
