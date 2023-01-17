@@ -10,6 +10,17 @@
 #include "read.h"
 
 void command_ajuda() {
+  char *help[] = {
+    "limpa", "Limpar o terminal",
+    "Ajuda", "Para pedir ajuda digite ajuda",
+    "cd", "Comando para mudar de diretorio",
+    "sair", "Finaliza a execucao",
+  };
+
+  for (int i = 0; i < 6; i+=2){
+    printf("- %s : %s\n", help[i], help[i+1]);
+  }
+  
   return ;
 }
 void command_amb_getAll() {
@@ -24,17 +35,39 @@ void command_amb_setVar(char * nameVar, char * valueVar) {
 void command_externCommand(char * command) {
   return ;
 }
-void command_changeDir(char * path) {
-  char *currentDir = "/home/gabriel/Downloads";
+
+/*
+  ARRUMAR VERIFICAÇÃO DE ESPAÇOS DENTRO DE ASPAS
+*/
+
+
+void command_changeDir(char * path, char *dta) {
   int strLength = str_length(path);
   if(strLength == 0) return ;
 
-  reader read;
-  tokenize(path, '/', &read);
+  // tokenizar entrada
+  // printf("tokenize input\n");
+  reader *inputReader = createReader(10);
+  tokenize(path, '/', inputReader);
+  // print_reader(inputReader);
 
-  for(int i = 0; i < read.length; i++) {
-    printf("[%s]\n", read.tokens[i]);
+  //tokenizar path atual
+  // printf("tokenize dta\n");
+  reader * dtaReader = createReader(10);
+  tokenize(dta, '/', dtaReader);
+  // print_reader(dtaReader);
+
+  for(int i = 0; i < inputReader->length; i++) {
+    if(strcmp(inputReader->tokens[i], "..") == 0) {
+      popReader(dtaReader);
+    } else {
+      pushReader(dtaReader, inputReader->tokens[i]);
+    }
   }
+
+  char *alterPath = concatTokens(dtaReader);
+  // printf("Path Resultado : %s\n", alterPath);
+  strcpy(dta, alterPath);
   return ;
 }
 void command_limpa() {
