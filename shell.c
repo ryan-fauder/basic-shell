@@ -8,7 +8,6 @@ void interpreter(Env *env, History *history, FILE *stream)
   char *nameShell;
   char *input;
   while(1){
-    printf("\t\t");
     nameShell = env_getVar(env, "PRONTO"); // Talvez usar str_get
     printf("%s", nameShell);
     printf(" \\>");
@@ -16,7 +15,7 @@ void interpreter(Env *env, History *history, FILE *stream)
     if(input == NULL) break;
     history_setRecord(history, input);
     printf("%s", input);
-    //if(parser_controller(input) == NULL) break;
+    // if(parser_controller(input) == NULL) break;
   }
   return;
 }

@@ -12,14 +12,14 @@ void imprimirErro(char *error) {
 
 int main(int argc, char *argv[], char *envp[]) {
   char input[32];
-  reader *r = createReader(10);
+  Reader *r = reader_create(10);
   while(1) {
 
     printf("gabriel@gabriel-dev: ~%s ", dta);
     scanf(" %[^\n]s", input);
 
-    tokenize(input, ' ', r);
-    // print_reader(r);
+    r = tokenize1(input, ' ');
+    // reader_print(r);
     if(!r->length) continue;
     char *command = r->tokens[0];
 

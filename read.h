@@ -6,17 +6,17 @@ typedef struct str_tokens
     char **tokens;
     int length;
     int max_length;
-} reader;
+} Reader;
 
-void clear_input();
-int space_counter(char *);
-reader* createReader(int initial_size);
-void pushReader(reader *r, char *str);
-void popReader(reader *r);
-void tokenize (char *, char, reader *);
+Reader* reader_create(int initial_size);
+void reader_push(Reader *r, char *str);
+void reader_pop(Reader *r);
+void tokenize (char *, char, Reader *);
+Reader *tokenize1(char *str, char separator);
+char *read_between(char *begin, char end, char *token, int *index);
 char* read_line();
-void freeReader(reader *r);
-void print_reader(reader *r);
-char* concatTokens(reader *r);
+void reader_free(Reader *r);
+void reader_print(Reader *r);
+char* reader_join(Reader *r, char * separator);
 
 #endif //__READ_H__

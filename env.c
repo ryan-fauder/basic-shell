@@ -40,7 +40,7 @@ Env *env_read(char *nameFile){
 	if(file = NULL){
 		file = fopen(nameFile, "w");
 		fclose(file);
-	}
+  }
 	
 	return env;
 

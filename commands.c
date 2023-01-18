@@ -47,25 +47,25 @@ void command_changeDir(char * path, char *dta) {
 
   // tokenizar entrada
   // printf("tokenize input\n");
-  reader *inputReader = createReader(10);
+  Reader *inputReader = reader_create(10);
   tokenize(path, '/', inputReader);
-  // print_reader(inputReader);
+  // reader_print(inputReader);
 
   //tokenizar path atual
   // printf("tokenize dta\n");
-  reader * dtaReader = createReader(10);
+  Reader * dtaReader = reader_create(10);
   tokenize(dta, '/', dtaReader);
-  // print_reader(dtaReader);
+  // reader_print(dtaReader);
 
   for(int i = 0; i < inputReader->length; i++) {
     if(strcmp(inputReader->tokens[i], "..") == 0) {
-      popReader(dtaReader);
+      reader_pop(dtaReader);
     } else {
-      pushReader(dtaReader, inputReader->tokens[i]);
+      reader_push(dtaReader, inputReader->tokens[i]);
     }
   }
 
-  char *alterPath = concatTokens(dtaReader);
+  char *alterPath = reader_join(dtaReader, "/");
   // printf("Path Resultado : %s\n", alterPath);
   strcpy(dta, alterPath);
   return ;

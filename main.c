@@ -12,12 +12,16 @@
 #include "utils.h"
 #include "env.h"
 #include "shell.h"
+
+void test_command_externCommand();
 int main(int argc, char const *argv[])
 {
   history_test();
   map_test();
   pair_test();
   env_test();
+  test_command_externCommand();
+  return 0;
   Env * env = env_create();
   History * history = history_create();
   FILE * stream = stdin;
@@ -26,82 +30,11 @@ int main(int argc, char const *argv[])
   return 0;
 }
 
-char *read_between(char *begin, char end, char *token, int *index)
-{
-  int i = *index;
-  printf("BEGIN: %s\n", begin);
-  printf("BEFORE \": %s\n", token);
-  token[i] = *begin;
-  begin++;
-  i++;
-  for (; *begin != end; begin++, i++)
-  {
-    token[i] = *begin;
-  }
-  token[i] = *begin;
-  begin++;
-  i++;
-  *index = i;
-  printf("AFTER \": %s\n", token);
-  return begin;
-}
-Stack *tokenize1(char *str, char separator)
-{
-  Stack *tokens = stack_create(100);
-  char *c = str;
-  char *token = str_alloc();
-  int i = 0;
-  for (; *c != '\0'; c++, i++)
-  {
-    if (*c == 34)
-    { // c = \"
-      c = read_between(c, 34, token, &i);
-    }
-    else if (*c == separator)
-    {
-      token[i] = '\0';
-      i++;
-      stack_push(tokens, token);
-      i = -1;
-      token = str_alloc();
-    }
-    else
-    {
-      token[i] = *c;
-    }
-    printf("%s\n", token);
-  }
-  token[i] = '\0';
-  printf("%s\n", token);
-  stack_push(tokens, token);
-  return tokens;
-}
-void test_tokenize(){
-  FILE *stream = stdin;
-  Stack *tokens;
-  while (1)
-  {
-    printf("    \\ > ");
-    char *input = str_alloc();
-    input[0] = 0;
-    if (fscanf(stream, "%[^\n]s", input) == EOF) break;
-    fscanf(stream, "%*c");
-    printf("-- %s --\n", input);
-    if (input == NULL)
-      break;
-    if (strcmp("", input) == 0)
-      continue;
-    tokens = tokenize1(input, 32);
-    stack_print(tokens);
-  }
-  tokens = tokenize1(stack_at(tokens, 1), '=');
-  stack_print(tokens);
-}
 void test_command_externCommand()
 {
   Map *map = map_create(100);
   char *command = "ls";
-  map_set(map, str_get("DTA"), str_get("/home/"));
+  map_set(map, str_get("DTA"), str_get("/home/ryan"));
   char *arg = map_get(map, "DTA");
   char **args = (char **)malloc(sizeof(char *) * 32);
   int pid, status, ret;
