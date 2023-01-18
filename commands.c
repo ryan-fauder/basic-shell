@@ -97,7 +97,6 @@ void command_limpa() {
     // processo pai
     wait(0) ;
   }
-  return ;
 }
 void command_print_history(/*History * history*/) {
   return ;

@@ -32,6 +32,7 @@ char parser_controller(Env *env, char *command)
     {
       printf("COMMAND NOT FOUND: %s", command);
     }
+    parser_limpa();
   }
   else if (strcmp(reader->tokens[0], "sair") == 0)
   {
