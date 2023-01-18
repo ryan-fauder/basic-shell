@@ -14,7 +14,8 @@
 #include "shell.h"
 
 extern int _COMMAND_SIZE;
-void test_command_externCommand();
+
+
 int main(int argc, char const *argv[])
 {
   test_command_externCommand();
@@ -60,32 +61,4 @@ int main(int argc, char const *argv[])
   interpreter(env, history, stream);
 
   return 0;
-}
-
-void test_command_externCommand()
-{
-  Map *map = map_create(100);
-  char *command = "ls";
-  map_set(map, str_get("DTA"), str_get("/home/ryan"));
-  char *arg = map_get(map, "DTA");
-  char **args = (char **)malloc(sizeof(char *) * 32);
-  int pid, status, ret;
-  if ((pid = fork()) < 0)
-  {
-    perror("fork");
-    exit(EX_OSERR);
-  }
-
-  if (!pid)
-  {
-    args[0] = "cd";
-    args[1] = arg;
-    execvp(command, args);
-    args[0] = "ls";
-    args[1] = ".";
-    args[2] = "-l";
-    args[3] = NULL;
-    execvp(command, args);
-  }
-  waitpid(pid, &status, 0);
 }
