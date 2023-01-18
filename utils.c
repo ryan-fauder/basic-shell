@@ -4,6 +4,25 @@
 #include <string.h>
 extern const int _COMMAND_SIZE;
 
+char * remove_char(char *str, char charRemove) {
+  int count = 0;
+  while(str[count] != '\0') count++;
+  
+  char *newStr = (char*) malloc(sizeof(char)*count);
+  int countNewStr = 0;
+  for(int i =  0; i < count; i++) {
+      if(str[i] != charRemove) {
+          newStr[countNewStr] = str[i];
+          countNewStr++;
+      }
+  }
+  
+  newStr[countNewStr] = '\0';
+  
+  return newStr;
+}
+
+
 char * str_get(char *str){
   char *buffer = (char *) malloc(_COMMAND_SIZE);
   strcpy(buffer, str);
