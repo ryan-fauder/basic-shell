@@ -8,13 +8,14 @@ void interpreter(Env *env, History *history, FILE *stream)
   char *nameShell;
   char *input;
   while(1){
-    nameShell = env_getVar(env, "PRONTO"); // Talvez usar str_get
-    printf("%s", nameShell);
-    printf(" \\>");
-    input = read_line();
+    if(stream == stdin){
+      nameShell = env_getVar(env, "PRONTO"); // Talvez usar str_get
+      printf("%s", nameShell);
+    }
+    input = read_line(stream);
     if(input == NULL) break;
     history_setRecord(history, input);
-    printf("%s", input);
+    printf("%s\n", input);
     // if(parser_controller(input) == NULL) break;
   }
   return;

@@ -8,5 +8,5 @@ const int _HISTORY_INITIAL_CAPACITY = 100;
 const int _ENV_INITIAL_CAPACITY = 100;
 
 // UTILS_H
-const int _COMMAND_SIZE = 32;
+const int _COMMAND_SIZE = 2048;
 

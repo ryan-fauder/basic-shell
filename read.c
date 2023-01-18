@@ -1,4 +1,3 @@
-#include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 #include "read.h"
@@ -73,16 +72,16 @@ Reader *tokenize1(char *str, char separator)
     }
   }
   token[i] = '\0';
-  printf("%s\n", token);
   reader_push(tokens, token);
   return tokens;
 }
 
-char *read_line()
+char *read_line(FILE * stream)
 {
   char *input = str_alloc();
-  scanf("%[^\n]", input);
-  scanf("%*c");
+  input[0] = 0;
+  if(fscanf(stream, "%[^\n]s", input) == EOF) return NULL;
+  fscanf(stream, "%*c");
   return input;
 }
 

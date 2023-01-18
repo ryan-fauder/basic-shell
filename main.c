@@ -13,20 +13,52 @@
 #include "env.h"
 #include "shell.h"
 
+extern int _COMMAND_SIZE;
 void test_command_externCommand();
 int main(int argc, char const *argv[])
 {
+  test_command_externCommand();
   history_test();
   map_test();
   pair_test();
   env_test();
-  test_command_externCommand();
-  return 0;
+  // Main
   Env * env = env_create();
   History * history = history_create();
-  FILE * stream = stdin;
-  env_setVar(env, "PRONTO", "~/home/");
+  FILE * stream;
+
+  char * hostname = str_alloc();
+  char * current_dir = str_alloc();
+  char * pid = str_alloc();
+  gethostname(hostname, _COMMAND_SIZE);
+  current_dir = getenv("PWD");
+  sprintf(pid, "%d", getpid());
+  
+  env_setVar(env, "HOST", hostname);
+  env_setVar(env, "SHELL", pid);
+  env_setVar(env, "DTA", "current_dir");
+  env_setVar(env, "PRONTO", "$DTA \\>");
+
+  
+  printf("RESULTADO HOST: %s\n", env_getVar(env, str_get("HOST")));
+  printf("RESULTADO SHELL: %s\n", env_getVar(env, str_get("SHELL")));
+  printf("RESULTADO DTA: %s\n", env_getVar(env, str_get("DTA")));
+  printf("RESULTADO PRONTO: %s\n", env_getVar(env, str_get("PRONTO")));
+
+  if(argc == 1){
+    stream = stdin;
+  }
+  else if(argc == 2){
+    char *filename = str_alloc();
+    strcpy(filename, argv[1]);
+    stream = fopen(filename, "r+");
+  }
+  else{
+    printf("ERROR - MORE PARAMATERS THAN EXPECTED\n");
+    return 0;
+  }
   interpreter(env, history, stream);
+
   return 0;
 }
 
@@ -50,7 +82,9 @@ void test_command_externCommand()
     args[1] = arg;
     execvp(command, args);
     args[0] = "ls";
-    args[1] = NULL;
+    args[1] = ".";
+    args[2] = "-l";
+    args[3] = NULL;
     execvp(command, args);
   }
   waitpid(pid, &status, 0);
