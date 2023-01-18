@@ -32,13 +32,19 @@ void command_amb_getVar(char * nameVar) {
 void command_amb_setVar(char * nameVar, char * valueVar) {
   return ;
 }
-void command_externCommand(char * command) {
+void command_externCommand(char * command, char **argv) {
+  int pid = fork ();
+  if(pid == 0) {
+    // processo filho
+    int a = execvp(command, argv);
+    printf("%d\n", a);
+    perror("Erro: ");
+  } else {
+    // processo pai
+    wait(0) ;
+  }
   return ;
 }
-
-/*
-  ARRUMAR VERIFICAÇÃO DE ESPAÇOS DENTRO DE ASPAS
-*/
 
 
 void command_changeDir(char * path, char *dta) {
