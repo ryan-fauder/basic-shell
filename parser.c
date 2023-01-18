@@ -68,11 +68,9 @@ void parser_amb(Env *env, Reader *reader, char *command)
 }
 void command_amb_set(Env *env, Reader *reader, char * command){
     // Check about spaces into "".
-    const char**attrb = tokenize1(reader->tokens[1], "=");
-    
-    reader->tokens = tokenize1(command, "=");
-    char **temp = tokenize1(reader->tokens[0], " ");
-    reader->tokens[0] = temp[1];
+    const char**attrb = tokenize1(reader->tokens[1], '=');
+    char * var_name = str_get(attrb[0]);
+    char * var_value = str_get(attrb[1]);
     if (reader->length < 2)
     {
       printf("COMMAND NOT FOUND");
@@ -90,9 +88,10 @@ char parser_sair()
 }
 void parser_externCommand(Env *env, Reader *reader)
 {
-  command_externCommand(env, reader->tokens[0], reader->tokens);
+  command_externCommand(reader->tokens[0], reader->tokens);
 }
 void parser_changeDir(Env *env, Reader *reader)
 {
-  command_changeDir(env, reader->tokens[1]);
+  char * current_dir = env_getVar(env, "DTA");
+  command_changeDir(reader->tokens[1], current_dir);
 }

@@ -8,6 +8,7 @@
 #include "commands.h"
 #include "utils.h"
 #include "read.h"
+#include "env.h"
 
 void command_ajuda() {
   char *help[] = {
@@ -23,13 +24,13 @@ void command_ajuda() {
   
   return ;
 }
-void command_amb_getAll() {
+void command_amb_getAll(Env * env) {
   return ;
 }
-void command_amb_getVar(char * nameVar) {
+void command_amb_getVar(Env * env, char * nameVar) {
   return ;
 }
-void command_amb_setVar(char * nameVar, char * valueVar) {
+void command_amb_setVar(Env * env, char * nameVar, char * valueVar) {
   return ;
 }
 void command_externCommand(char * command, char **argv) {
@@ -45,8 +46,6 @@ void command_externCommand(char * command, char **argv) {
   }
   return ;
 }
-
-
 void command_changeDir(char * path, char *dta) {
   int strLength = str_length(path);
   if(strLength == 0) return ;

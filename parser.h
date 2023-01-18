@@ -23,7 +23,7 @@ void parser_limpa();
  * @param env: Env *
  * @param command: char *
  */
-void parser_amb(Env *env, char * command);
+void parser_amb(Env *env, Reader * reader, char * command);
 
 /**
  * @brief Trata o comando para imprimir ajuda
@@ -42,17 +42,17 @@ char parser_sair();
  * @brief Trata o comando para executar um comando externo
  * 
  * @param env: Env *
- * @param tokens: char **
+ * @param tokens: Reader *
  */
-void parser_externCommand(Env *env, char ** tokens);
+void parser_externCommand(Env *env, Reader * tokens);
 
 /**
  * @brief Trata o comando para alterar o diretorio da shell
  * 
  * @param env: Env *
- * @param tokens: char **
+ * @param tokens: Reader *
  */
-void parser_changeDir(Env *env, char ** tokens);
+void parser_changeDir(Env *env, Reader * tokens);
 
 #endif //__PARSER_H__
 

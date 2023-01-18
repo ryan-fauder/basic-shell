@@ -59,6 +59,7 @@ int main(int argc, char const *argv[])
     return 0;
   }
   interpreter(env, history, stream);
-
+  // history_write(history);
+  // env_write(env);
   return 0;
 }
