@@ -27,7 +27,6 @@ int main(int argc, char const *argv[])
   Env * env = env_create();
   History * history = history_create();
   FILE * stream;
-
   char * hostname = str_alloc();
   char * current_dir = str_alloc();
   char * pid = str_alloc();
@@ -54,7 +53,7 @@ int main(int argc, char const *argv[])
   }
   interpreter(env, history, stream);
   history_print(history);
-  // history_write(history);
+  history_write(history);
   // env_write(env);
   return 0;
 }

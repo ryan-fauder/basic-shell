@@ -15,4 +15,6 @@ O arquivo armazena o histórico de comandos executados na ordem do mais antigo p
 - [] Checar se existe uma chave igual ao armazenar?
 - [] Tokenize não pode separar espaços dentro de "".
 - [] Variáveis dentro de Variáveis.
-- [] Lidar com ../ em CD.
+- [x] Lidar com ../ em CD.
+- [x] Lidar com ./ em CD.
+- []

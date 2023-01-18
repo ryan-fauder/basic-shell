@@ -7,7 +7,6 @@
 #include "read.h"
 
 extern const int _ENV_INITIAL_CAPACITY;
-char *env_resolveVar(Env *env, char *str);
 char *env_placeVar(Env *env, char *itr_str, char *value, int *value_size);
 
 Env *env_create()

@@ -7,7 +7,7 @@
 char parser_controller(Env *env, char *command)
 {
   Reader *reader = tokenize1(command, ' ');
-
+  reader_print(reader);
   if(reader->length < 1) return 0;
 
   if (strcmp(reader->tokens[0], "cd")== 0)
@@ -91,7 +91,7 @@ char parser_sair()
 }
 void parser_externCommand(Env *env, Reader *reader)
 {
-  command_externCommand(reader->tokens[0], reader->tokens);
+  command_externCommand(env, reader->tokens[0], reader->tokens);
 }
 void parser_changeDir(Env *env, Reader *reader)
 {

@@ -55,5 +55,12 @@ void env_free(Env *env);
  * 
  */
 void env_test();
-
+/**
+ * @brief Substitute variables from a string
+ * 
+ * @param env: Env *
+ * @param str: char *
+ * @return char* 
+ */
+char *env_resolveVar(Env *env, char *str);
 #endif

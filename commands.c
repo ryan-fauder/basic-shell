@@ -41,16 +41,24 @@ void command_amb_setVar(Env * env, char * nameVar, char * valueVar) {
   env_setVar(env, nameVar, valueVar);
   printf("Variavel adicionada:\n %s=%s\n", nameVar, env_getVar(env, nameVar));
 }
-void command_externCommand(char * command, char **argv) {
+void command_externCommand(Env * env, char * command, char **argv) {
   int pid = fork();
+  int status;
   if(pid == 0) {
+    char * current_dir = env_getVar(env, "DTA");
+    int error_dir = chdir(current_dir);
+    if(error_dir == -1){  
+      printf("ERROR: SHELL NAO PODE EXECUTAR O COMANDO NO DIRETORIO\n");
+    }
     // processo filho
-    int a = execvp(command, argv);
-    printf("%d\n", a);
-    perror("Erro: ");
+    int error = execvp(command, argv);
+    if(error == -1){  
+      printf("ERROR: COMANDO NAO RECONHECIDO\n");
+    }
   } else {
     // processo pai
-    wait(0) ;
+    
+    waitpid(pid, &status, 0);
   }
   return ;
 }
