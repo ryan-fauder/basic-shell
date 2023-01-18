@@ -25,11 +25,13 @@ void command_ajuda() {
   return ;
 }
 void command_amb_getAll(Env * env) {
+  Pair * pair;
   printf("Variaveis de ambiente: \n");
+  map_print(env->varmap);
   for (int i = 0; i < env->size; i++)
   {
-    Pair * pair = env->varmap->pairs[i];
-    printf("- %s=%s\n",pair->key, pair->value);
+    pair = env->varmap->pairs[i];
+    printf("- %s=%s\n",pair->key, env_getVar(env, pair->key));
   }
 }
 void command_amb_getVar(Env * env, char * nameVar) {
@@ -58,28 +60,30 @@ void command_changeDir(Env * env, char * path, char *dta) {
 
   // tokenizar entrada
   // printf("tokenize input\n");
-  Reader *inputReader = reader_create(10);
-  tokenize(path, '/', inputReader);
+  Reader *inputReader = tokenize1(path, '/');
   // reader_print(inputReader);
 
   //tokenizar path atual
   // printf("tokenize dta\n");
-  Reader * dtaReader = reader_create(10);
-  tokenize(dta, '/', dtaReader);
+  Reader * dtaReader = tokenize1(dta, '/');
+  
   // reader_print(dtaReader);
-
   for(int i = 0; i < inputReader->length; i++) {
     if(strcmp(inputReader->tokens[i], "..") == 0) {
       reader_pop(dtaReader);
-    } else {
+    } 
+    else if(strcmp(inputReader->tokens[i], ".") == 0) {
+      continue;
+    }
+    else {
       reader_push(dtaReader, inputReader->tokens[i]);
     }
   }
 
+
   char *alterPath = reader_join(dtaReader, "/");
   // printf("Path Resultado : %s\n", alterPath);
-  strcpy(dta, alterPath);
-  env_setVar(env, str_get("DTA"), dta);
+  env_setVar(env, str_get("DTA"), alterPath);
   return ;
 }
 void command_limpa() {

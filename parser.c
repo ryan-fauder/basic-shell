@@ -4,20 +4,21 @@
 #include <stdio.h>
 #include <string.h>
 
-char * parser_controller(Env *env, char *command)
+char parser_controller(Env *env, char *command)
 {
   Reader *reader = tokenize1(command, ' ');
+
   if(reader->length < 1) return 0;
 
-  if (strcmp(reader->tokens[0], "cd"))
+  if (strcmp(reader->tokens[0], "cd")== 0)
   {
     parser_changeDir(env, reader);
   }
-  else if (strcmp(reader->tokens[0], "amb"))
+  else if (strcmp(reader->tokens[0], "amb") == 0)
   {
     parser_amb(env, reader, command);
   }
-  else if (strcmp(reader->tokens[0], "ajuda"))
+  else if (strcmp(reader->tokens[0], "ajuda") == 0)
   {
     if (reader->length > 1)
     {
@@ -25,14 +26,14 @@ char * parser_controller(Env *env, char *command)
     }
     parser_ajuda();
   }
-  else if (strcmp(reader->tokens[0], "limpa"))
+  else if (strcmp(reader->tokens[0], "limpa") == 0)
   {
     if (reader->length > 1)
     {
       printf("COMMAND NOT FOUND: %s", command);
     }
   }
-  else if (strcmp(reader->tokens[0], "sair"))
+  else if (strcmp(reader->tokens[0], "sair") == 0)
   {
     if (reader->length > 1)
     {
@@ -44,7 +45,7 @@ char * parser_controller(Env *env, char *command)
   {
     parser_externCommand(env, reader);
   }
-  return 0;
+  return 1;
 }
 void parser_limpa()
 {
@@ -83,9 +84,9 @@ void parser_ajuda()
 {
   command_ajuda();
 }
-char * parser_sair()
+char parser_sair()
 {
-  return NULL;
+  return 0;
 }
 void parser_externCommand(Env *env, Reader *reader)
 {
@@ -94,5 +95,8 @@ void parser_externCommand(Env *env, Reader *reader)
 void parser_changeDir(Env *env, Reader *reader)
 {
   char * current_dir = env_getVar(env, "DTA");
+  reader_print(reader);
+  printf("%s\n", reader->tokens[1]);
+  printf("%s\n", current_dir);
   command_changeDir(env, reader->tokens[1], current_dir);
 }

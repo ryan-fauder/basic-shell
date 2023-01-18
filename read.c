@@ -130,7 +130,6 @@ void reader_print(Reader *r) {
 
 char* reader_join(Reader *r, char * separator) {
   char * strConcat = str_alloc();
-  strcat(strConcat, separator);
   for(int i = 0; i < r->length; i++) {
     strcat(strConcat, r->tokens[i]);
     if(i != r->length - 1) {

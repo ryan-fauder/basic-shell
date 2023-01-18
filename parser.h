@@ -10,7 +10,7 @@
  * @param command: char *
  * @return char 
  */
-char * parser_controller(Env * env, char * command);
+char parser_controller(Env * env, char * command);
 
 /**
  * @brief Trata o comando para limpar o terminal da shell
@@ -46,7 +46,7 @@ void parser_ajuda();
  * 
  * @return char 
  */
-char * parser_sair();
+char parser_sair();
 
 /**
  * @brief Trata o comando para executar um comando externo

@@ -21,9 +21,17 @@ Env *env_create()
 char *env_getVar(Env *env, char *key)
 {
   char *value = NULL;
+  if(key == NULL){
+    printf("ERROR - GET A VALUE FROM ENV WITH A NULL KEY");
+    return NULL;
+  }
   value = map_get(env->varmap, key);
-  // 
+  if(value == NULL){
+    printf("ERROR - GOT A NULL VALUE FROM ENV");
+    return NULL;
+  }
   return env_resolveVar(env, value);
+  // return value;
 }
 
 void env_setVar(Env *env, char *key, char *value)
@@ -32,11 +40,11 @@ void env_setVar(Env *env, char *key, char *value)
   {
     printf("Sem capacidade para alocar\n");
     map_realloc(env->varmap, (env->capacity) * 2);
+    env->capacity  = env->capacity * 2;
   }
-
   map_set(env->varmap, key, value);
-
-  (env->size)++;
+  
+  env->size = env->varmap->size;
 }
 
 void env_write(Env *env, char *nameFile)
