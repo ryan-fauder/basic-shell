@@ -18,10 +18,10 @@ extern int _COMMAND_SIZE;
 
 int main(int argc, char const *argv[])
 {
-  history_test();
-  map_test();
-  pair_test();
-  env_test();
+  // history_test();
+  // map_test();
+  // pair_test();
+  // env_test();
   
   // History
   Env * env = env_create();
@@ -37,14 +37,8 @@ int main(int argc, char const *argv[])
   
   env_setVar(env, "HOST", hostname);
   env_setVar(env, "SHELL", pid);
-  env_setVar(env, "DTA", "current_dir");
+  env_setVar(env, "DTA", current_dir);
   env_setVar(env, "PRONTO", "$DTA \\>");
-
-  
-  printf("RESULTADO HOST: %s\n", env_getVar(env, str_get("HOST")));
-  printf("RESULTADO SHELL: %s\n", env_getVar(env, str_get("SHELL")));
-  printf("RESULTADO DTA: %s\n", env_getVar(env, str_get("DTA")));
-  printf("RESULTADO PRONTO: %s\n", env_getVar(env, str_get("PRONTO")));
 
   if(argc == 1){
     stream = stdin;
@@ -59,6 +53,7 @@ int main(int argc, char const *argv[])
     return 0;
   }
   interpreter(env, history, stream);
+  history_print(history);
   // history_write(history);
   // env_write(env);
   return 0;
