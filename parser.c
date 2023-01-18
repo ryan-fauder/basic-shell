@@ -50,34 +50,34 @@ void parser_limpa()
 }
 void parser_amb(Env *env, Reader *reader, char *command)
 {
-  if (tokens->size == 1)
+  if (reader->length == 1)
   {
     command_amb_getAll(env);
   }
-  else if (tokens->size == 2)
+  else if (reader->length == 2)
   {
-    const *key = tokens[1];
+    const *key = reader->tokens[1];
     command_amb_get(env, key);
   }
   else
   {
-    parser_amb_set(env, tokens);
+    parser_amb_set(env, reader->tokens);
   }
   return;
 }
-void command_amb_set(Env *env, Reader *reader){
+void command_amb_set(Env *env, Reader *reader, char * command){
     // Check about spaces into "".
-    const char**attrb = tokenize1(tokens[1], "=");
+    const char**attrb = tokenize1(reader->tokens[1], "=");
     
-    tokens = tokenize1(command, "=");
-    char **temp = tokenize1(tokens[0], " ");
-    tokens[0] = temp[1];
-    if (tokens->size < 2)
+    reader->tokens = tokenize1(command, "=");
+    char **temp = tokenize1(reader->tokens[0], " ");
+    reader->tokens[0] = temp[1];
+    if (reader->length < 2)
     {
       printf("COMMAND NOT FOUND");
       return;
     }
-    command_amb_set(env, tokens[0], tokens[1]);
+    command_amb_set(env, reader->tokens[0], reader->tokens[1]);
 }
 void parser_ajuda()
 {
