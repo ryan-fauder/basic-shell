@@ -8,7 +8,6 @@
 #include "commands.h"
 #include "utils.h"
 #include "read.h"
-#include "env.h"
 #include "pair.h"
 
 void command_ajuda() {

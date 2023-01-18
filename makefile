@@ -7,7 +7,7 @@ OPTIONS = -g -O0
 
 LIBRARIES = -lm
 
-SOURCES = historico.h historico.c stack.h stack.c utils.h utils.c read.c read.h
+SOURCES = historico.h historico.c stack.h stack.c utils.h utils.c read.c read.h parser.c parser.h
 SOURCES2 = config.c map.h map.c pair.c pair.h env.c env.h shell.c shell.h commands.c commands.h
 
 

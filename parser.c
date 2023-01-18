@@ -1,20 +1,21 @@
 #include "parser.h"
-#include "read.h"
+#include "commands.h"
+#include "utils.h"
 #include <stdio.h>
 #include <string.h>
 
-char parser_controller(Env *env, char *command)
+char * parser_controller(Env *env, char *command)
 {
   Reader *reader = tokenize1(command, ' ');
   if(reader->length < 1) return 0;
 
   if (strcmp(reader->tokens[0], "cd"))
   {
-    parser_changeDir(env, reader->tokens);
+    parser_changeDir(env, reader);
   }
   else if (strcmp(reader->tokens[0], "amb"))
   {
-    parser_amb(env, reader->tokens, command);
+    parser_amb(env, reader, command);
   }
   else if (strcmp(reader->tokens[0], "ajuda"))
   {
@@ -37,11 +38,11 @@ char parser_controller(Env *env, char *command)
     {
       printf("COMMAND NOT FOUND: %s", command);
     }
-    return parser_sair(env, reader->tokens);
+    return parser_sair();
   }
   else
   {
-    parser_externCommand(env, reader->tokens);
+    parser_externCommand(env, reader);
   }
   return 0;
 }
@@ -57,32 +58,32 @@ void parser_amb(Env *env, Reader *reader, char *command)
   }
   else if (reader->length == 2)
   {
-    const *key = reader->tokens[1];
-    command_amb_get(env, key);
+    char *key = reader->tokens[1];
+    command_amb_getVar(env, key);
   }
   else
   {
-    parser_amb_set(env, reader->tokens);
+    parser_amb_set(env, reader, command);
   }
   return;
 }
-void command_amb_set(Env *env, Reader *reader, char * command){
+void parser_amb_set(Env *env, Reader *reader, char * command){
     // Check about spaces into "".
-    const char**attrb = tokenize1(reader->tokens[1], '=');
-    char * var_name = str_get(attrb[0]);
-    char * var_value = str_get(attrb[1]);
+    Reader * attrb = tokenize1(reader->tokens[1], '=');
+    char * var_name = str_get(attrb->tokens[0]);
+    char * var_value = str_get(attrb->tokens[1]);
     if (reader->length < 2)
     {
       printf("COMMAND NOT FOUND");
       return;
     }
-    command_amb_set(env, reader->tokens[0], reader->tokens[1]);
+    command_amb_setVar(env, var_name, var_value);
 }
 void parser_ajuda()
 {
   command_ajuda();
 }
-char parser_sair()
+char * parser_sair()
 {
   return NULL;
 }
@@ -93,5 +94,5 @@ void parser_externCommand(Env *env, Reader *reader)
 void parser_changeDir(Env *env, Reader *reader)
 {
   char * current_dir = env_getVar(env, "DTA");
-  command_changeDir(reader->tokens[1], current_dir);
+  command_changeDir(env, reader->tokens[1], current_dir);
 }

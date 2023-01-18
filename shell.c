@@ -1,4 +1,5 @@
 #include "shell.h"
+#include "parser.h"
 #include "read.h"
 #include "utils.h"
 #include <stdio.h>
@@ -16,7 +17,7 @@ void interpreter(Env *env, History *history, FILE *stream)
     if(input == NULL) break;
     history_setRecord(history, input);
     printf("%s\n", input);
-    // if(parser_controller(input) == NULL) break;
+    if(parser_controller(env, input) == NULL) break;
   }
   return;
 }

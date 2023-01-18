@@ -1,6 +1,8 @@
 #ifndef __COMMANDS_H__
 #define __COMMANDS_H__
 
+#include "env.h"
+
 void command_ajuda();
 void command_amb_getAll(Env *env);
 void command_amb_getVar(Env *env, char *nameVar);
