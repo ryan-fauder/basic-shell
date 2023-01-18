@@ -9,6 +9,7 @@
 #include "utils.h"
 #include "read.h"
 #include "env.h"
+#include "pair.h"
 
 void command_ajuda() {
   char *help[] = {
@@ -25,16 +26,22 @@ void command_ajuda() {
   return ;
 }
 void command_amb_getAll(Env * env) {
-  return ;
+  printf("Variaveis de ambiente: \n");
+  for (int i = 0; i < env->size; i++)
+  {
+    Pair * pair = env->varmap->pairs[i];
+    printf("- %s=%s\n",pair->key, pair->value);
+  }
 }
 void command_amb_getVar(Env * env, char * nameVar) {
-  return ;
+  printf("%s\n", env_getVar(env, nameVar));
 }
 void command_amb_setVar(Env * env, char * nameVar, char * valueVar) {
-  return ;
+  env_setVar(env, nameVar, valueVar);
+  printf("Variavel adicionada:\n %s=%s\n", nameVar, env_getVar(env, nameVar));
 }
 void command_externCommand(char * command, char **argv) {
-  int pid = fork ();
+  int pid = fork();
   if(pid == 0) {
     // processo filho
     int a = execvp(command, argv);
@@ -46,7 +53,7 @@ void command_externCommand(char * command, char **argv) {
   }
   return ;
 }
-void command_changeDir(char * path, char *dta) {
+void command_changeDir(Env * env, char * path, char *dta) {
   int strLength = str_length(path);
   if(strLength == 0) return ;
 
@@ -73,6 +80,7 @@ void command_changeDir(char * path, char *dta) {
   char *alterPath = reader_join(dtaReader, "/");
   // printf("Path Resultado : %s\n", alterPath);
   strcpy(dta, alterPath);
+  env_setVar(env, str_get("DTA"), dta);
   return ;
 }
 void command_limpa() {
