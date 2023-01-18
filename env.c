@@ -38,6 +38,7 @@ void env_setVar(Env *env, char *key, char *value)
 
   (env->size)++;
 }
+
 void env_write(Env *env, char *nameFile)
 {
   FILE *stream = fopen(nameFile, "w+");
@@ -46,10 +47,6 @@ void env_write(Env *env, char *nameFile)
     printf("Error - Cannot write a env");
     fclose(stream);
   }
-  /**
-   * CHAVE=VALOR
-   *
-   */
   int i;
   char *key;
   char *value;
@@ -61,6 +58,7 @@ void env_write(Env *env, char *nameFile)
   }
   fclose(stream);
 }
+
 Env *env_read(char *nameFile)
 {
   Env *env = env_create();

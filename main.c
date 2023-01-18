@@ -18,12 +18,12 @@ extern int _COMMAND_SIZE;
 
 int main(int argc, char const *argv[])
 {
-  test_command_externCommand();
   history_test();
   map_test();
   pair_test();
   env_test();
-  // Main
+  
+  // History
   Env * env = env_create();
   History * history = history_create();
   FILE * stream;
