@@ -1,3 +1,6 @@
-amb var=1
-amb var2=2
-ajuda
+cd ..
+cd ..
+cd ..
+cd Programming
+ls
+sair

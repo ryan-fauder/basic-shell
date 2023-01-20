@@ -16,7 +16,6 @@ void interpreter(Env *env, History *history, FILE *stream)
     input = read_line(stream);
     if(input == NULL) break;
     history_setRecord(history, input);
-    printf("%s\n", input);
     if(parser_controller(env, input) == 0) break;
   }
   return;

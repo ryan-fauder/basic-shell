@@ -27,7 +27,6 @@ void command_ajuda() {
 void command_amb_getAll(Env * env) {
   Pair * pair;
   printf("Variaveis de ambiente: \n");
-  map_print(env->varmap);
   for (int i = 0; i < env->size; i++)
   {
     pair = env->varmap->pairs[i];
@@ -45,19 +44,20 @@ void command_externCommand(Env * env, char * command, char **argv) {
   int pid = fork();
   int status;
   if(pid == 0) {
+    // processo filho
     char * current_dir = env_getVar(env, "DTA");
     int error_dir = chdir(current_dir);
     if(error_dir == -1){  
       printf("ERROR: SHELL NAO PODE EXECUTAR O COMANDO NO DIRETORIO\n");
+      exit(0);
     }
-    // processo filho
     int error = execvp(command, argv);
     if(error == -1){  
       printf("ERROR: COMANDO NAO RECONHECIDO\n");
+      exit(0);
     }
   } else {
     // processo pai
-    
     waitpid(pid, &status, 0);
   }
   return ;
@@ -107,10 +107,5 @@ void command_limpa() {
   }
 }
 void command_print_history(/*History * history*/) {
-  return ;
-}
-void command_sair() {
-  printf("Saindo ...\n");
-  exit (1) ;
   return ;
 }

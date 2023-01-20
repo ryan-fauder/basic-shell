@@ -7,7 +7,6 @@
 char parser_controller(Env *env, char *command)
 {
   Reader *reader = tokenize1(command, ' ');
-  reader_print(reader);
   if(reader->length < 1) return 0;
 
   if (strcmp(reader->tokens[0], "cd")== 0)
@@ -58,19 +57,15 @@ void parser_amb(Env *env, Reader *reader, char *command)
   {
     command_amb_getAll(env);
   }
-  else if (reader->length == 2)
+  reader_print(reader);
+
+  if (reader->length == 2)
   {
     char *key = reader->tokens[1];
     command_amb_getVar(env, key);
   }
-  else
-  {
-    parser_amb_set(env, reader, command);
-  }
-  return;
-}
-void parser_amb_set(Env *env, Reader *reader, char * command){
-    // Check about spaces into "".
+
+      // Check about spaces into "".
     Reader * attrb = tokenize1(reader->tokens[1], '=');
     char * var_name = str_get(attrb->tokens[0]);
     char * var_value = str_get(attrb->tokens[1]);
@@ -79,7 +74,9 @@ void parser_amb_set(Env *env, Reader *reader, char * command){
       printf("COMMAND NOT FOUND");
       return;
     }
+    printf("SET VAR");
     command_amb_setVar(env, var_name, var_value);
+  return;
 }
 void parser_ajuda()
 {
@@ -95,9 +92,10 @@ void parser_externCommand(Env *env, Reader *reader)
 }
 void parser_changeDir(Env *env, Reader *reader)
 {
+  if(reader->length < 2){
+    printf("ERROR: COMANDO INVALIDO");
+    return;
+  }
   char * current_dir = env_getVar(env, "DTA");
-  reader_print(reader);
-  printf("%s\n", reader->tokens[1]);
-  printf("%s\n", current_dir);
   command_changeDir(env, reader->tokens[1], current_dir);
 }
