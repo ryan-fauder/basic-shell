@@ -1,4 +1,3 @@
-cd ..
-cd Programming
+amb VAR="12"
 amb
 sair
