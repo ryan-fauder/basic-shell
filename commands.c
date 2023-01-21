@@ -21,8 +21,8 @@ void command_ajuda() {
     "Ajuda", "Para pedir ajuda digite ajuda",
     "cd", "Comando para mudar de diretorio",
     "sair", "Finaliza a execucao",
-    "Variavels de Ambiente", "Para setar uma variavel de ambiente basta digitar amb NOME_VARIAVEL=\"CONTEUDO\"",
-    "Exibir Variaveis de Ambiente", "Para exibir as variaveis de ambiente disponiveis digitar amb $NOME_VARIAVEL",
+    "Variaveis de Ambiente", "Para definir uma variavel de ambiente, basta digitar amb NOME_VARIAVEL=\"CONTEUDO\"",
+    "Exibir Variaveis de Ambiente", "Para exibir as variaveis de ambiente disponiveis, basta digitar amb $NOME_VARIAVEL",
     "Listar Variaveis de Ambiente", "Para exibir todas as variaveis de ambiente entre com o comando amb",
     "Comandos Externos", "A shell tambem aceita comandos externos do linux"
   };
@@ -77,15 +77,11 @@ void command_changeDir(Env * env, char * path, char *dta) {
   if(strLength == 0) return ;
 
   // tokenizar entrada
-  // printf("tokenize input\n");
   Reader *inputReader = tokenize1(path, '/');
-  // reader_print(inputReader);
 
   //tokenizar path atual
-  // printf("tokenize dta\n");
   Reader * dtaReader = tokenize1(dta, '/');
   
-  // reader_print(dtaReader);
   for(int i = 0; i < inputReader->length; i++) {
     if(strcmp(inputReader->tokens[i], "..") == 0) {
       reader_pop(dtaReader);
@@ -109,24 +105,24 @@ void command_changeDir(Env * env, char * path, char *dta) {
     }
     return ;
   }
-  // printf("Path Resultado : %s\n", alterPath);
   env_setVar(env, str_get("DTA"), alterPath);
   return ;
 }
 void command_limpa() {
   int pid = fork ();
   char **argv = NULL;
+  int error_clear;
   if(pid == 0) {
     // processo filho
-    execvp("/bin/clear", argv);
-    perror("Erro: ") ;
+    error_clear = execvp("/bin/clear", argv);
+    if(error_clear == -1){  
+      printf("ERROR: SHELL NAO PODE EXECUTAR O COMANDO NO DIRETORIO\n");
+      exit(0);
+    }
   } else {
     // processo pai
     wait(0) ;
   }
-}
-void command_print_history(/*History * history*/) {
-  return ;
 }
 
 int command_validate_dir(char *path) {

@@ -17,7 +17,7 @@ void map_set(Map *map, char *key, char *value)
 {
   if (map->size >= map->capacity)
   {
-    printf("ERROR - SET INTO MAP: MAP AT CAPACITY");
+    printf("ERROR - SET EM MAP: MAP ATINGIU O LIMITE");
     return;
   }
 
@@ -91,7 +91,7 @@ void map_realloc(Map *map, int new_capacity)
   if (temp != NULL)
     map->pairs = temp;
   else
-    printf("ERROR - UNABLE TO REALLOCATE MEMORY FOR MAP");
+    printf("ERROR - NAO FOI POSSIVEL REALOCAR O MAP");
 }
 void map_test(){
   printf("TESTING - MAP\n");

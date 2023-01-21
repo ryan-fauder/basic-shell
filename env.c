@@ -133,12 +133,6 @@ char *env_placeVar(Env *env, char *itr_str, char *value, int *value_size)
   for (; *ptr != '\0'; ptr++, temp_size++)
   {
     value[temp_size] = *ptr;
-    /*
-    if(value_size >= 31){
-      printf("COMMAND CAPACITY AT LIMIT");
-      break;
-    }
-    */
   }
   *value_size = temp_size;
 

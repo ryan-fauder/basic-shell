@@ -51,12 +51,6 @@ void command_changeDir(Env * env, char *path, char *dta);
 *
 */
 void command_limpa();
-/**
-*@brief Função que mostra o histórico  
-*
-*/
-void command_print_history();
-
 int command_validate_dir(char *dir);
 
 #endif // __COMMANDS_H__

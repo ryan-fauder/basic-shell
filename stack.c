@@ -19,7 +19,7 @@ void stack_push(Stack *stack, char *value)
 {
   if (stack->size >= stack->capacity)
   {
-    printf("ERROR - PUSH TO STACK: STACK AT CAPACITY");
+    printf("ERROR - PUSH NA PILHA: PILHA ATINGIU O LIMITE");
     return;
   }
   int index = stack->size;
@@ -91,6 +91,6 @@ void stack_realloc(Stack *stack, int new_capacity)
   }
   else
   {
-    printf("ERROR - UNABLE TO REALLOCATE MEMORY");
+    printf("ERROR - NAO FOI POSSIVEL REALOCAR A PILHA");
   }
 }
