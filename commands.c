@@ -106,6 +106,3 @@ void command_limpa() {
     wait(0) ;
   }
 }
-void command_print_history(/*History * history*/) {
-  return ;
-}

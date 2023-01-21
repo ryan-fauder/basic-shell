@@ -56,10 +56,5 @@ void command_limpa();
 *
 */
 void command_print_history();
-/**
-*@brief Sai da shell 
-*
-*/
-void command_sair();
 
 #endif // __COMMANDS_H__
