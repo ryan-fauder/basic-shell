@@ -10,6 +10,9 @@
 #include "read.h"
 #include "pair.h"
 
+#include <dirent.h>
+#include <errno.h>
+
 void command_ajuda() {
   char *help[] = {
     "limpa", "Limpar o terminal",
@@ -90,6 +93,15 @@ void command_changeDir(Env * env, char * path, char *dta) {
 
 
   char *alterPath = reader_join(dtaReader, "/");
+  int flag = command_validate_dir(alterPath);
+  if(flag != 1) {
+    if(flag == 0) {
+      printf("ERRO: > Diretorio não existe !!\n");
+    } else {
+      printf("ERRO: > DESCONHECIDO !!\n");
+    }
+    return ;
+  }
   // printf("Path Resultado : %s\n", alterPath);
   env_setVar(env, str_get("DTA"), alterPath);
   return ;
@@ -108,4 +120,16 @@ void command_limpa() {
 }
 void command_print_history(/*History * history*/) {
   return ;
+}
+
+int command_validate_dir(char *path) {
+  DIR* dir = opendir(path);
+  if (dir) {
+      closedir(dir);
+      return 1;
+  } else if (ENOENT == errno) {
+      return 0;
+  } else {
+      return -1;
+  }
 }

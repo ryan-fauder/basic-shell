@@ -62,4 +62,6 @@ void command_print_history();
 */
 void command_sair();
 
+int command_validate_dir(char *dir);
+
 #endif // __COMMANDS_H__
