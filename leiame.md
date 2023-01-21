@@ -18,7 +18,7 @@ Um projeto um shell simplificada que realiza a criação de variáveis de ambien
 
 Esse projeto está disponível no repositório:
 
-[GITHUB](https://github.com/ryan-fauder/basic-shell/)
+[https://github.com/ryan-fauder/basic-shell/](https://github.com/ryan-fauder/basic-shell/)
 
 ## Configurações da Shell
 
