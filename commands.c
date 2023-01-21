@@ -125,11 +125,11 @@ void command_print_history(/*History * history*/) {
 int command_validate_dir(char *path) {
   DIR* dir = opendir(path);
   if (dir) {
-      closedir(dir);
-      return 1;
+    closedir(dir);
+    return 1;
   } else if (ENOENT == errno) {
-      return 0;
+    return 0;
   } else {
-      return -1;
+    return -1;
   }
 }
