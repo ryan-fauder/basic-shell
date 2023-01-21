@@ -1,8 +1,8 @@
 # Shell Simplificada
 
-Um projeto um shell simplificada que realiza a criação de variáveis de ambientes e a interpretação de comandos de linha.
+Um projeto de uma shell que realiza a criação de variáveis de ambientes e a interpretação de comandos de linha.
 
-## Alunos
+## Integrantes
 
 - Matheus Queiroz Rocha Barbosa
 - Ryan Fernandes Auder Lopes
