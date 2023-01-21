@@ -63,7 +63,7 @@ void command_externCommand(Env * env, char * command, char **argv) {
     }
     int error = execvp(command, argv);
     if(error == -1){  
-      printf("ERROR: COMANDO NAO RECONHECIDO\n");
+      printf("COMANDO NAO RECONHECIDO\n");
       exit(0);
     }
   } else {
@@ -99,15 +99,16 @@ void command_changeDir(Env * env, char * path, char *dta) {
   int flag = command_validate_dir(alterPath);
   if(flag != 1) {
     if(flag == 0) {
-      printf("ERRO: > Diretorio não existe !!\n");
+      printf("ERROR: DIRETORIO NAO EXISTE\n");
     } else {
-      printf("ERRO: > DESCONHECIDO !!\n");
+      printf("ERROR: DIRETORIO DESCONHECIDO\n");
     }
     return ;
   }
   env_setVar(env, str_get("DTA"), alterPath);
   return ;
 }
+
 void command_limpa() {
   int pid = fork ();
   char **argv = NULL;

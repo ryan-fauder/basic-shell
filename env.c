@@ -156,12 +156,6 @@ char *env_resolveVar(Env *env, char *str)
       value[value_size] = *itr_str;
       value_size++;
     }
-    /*
-    if(value_size >= 31){
-      printf("COMMAND CAPACITY AT LIMIT");
-      break;
-    }
-    */
   }
 
   value[value_size] = '\0';

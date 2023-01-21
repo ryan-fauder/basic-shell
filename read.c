@@ -29,8 +29,6 @@ void tokenize(char *command, char separator, Reader *t) {
 char *read_between(char *begin, char end, char *token, int *index)
 {
   int i = *index;
-  printf("BEGIN: %s\n", begin);
-  printf("BEFORE \": %s\n", token);
   token[i] = *begin;
   begin++;
   i++;
@@ -42,7 +40,6 @@ char *read_between(char *begin, char end, char *token, int *index)
   begin++;
   i++;
   *index = i;
-  printf("AFTER \": %s\n", token);
   return begin;
 }
 
@@ -138,6 +135,5 @@ char* reader_join(Reader *r, char * separator) {
       strcat(strConcat, separator);
     } 
   }
-  // printf("[%s]\n", strConcat);
   return strConcat;
 }
