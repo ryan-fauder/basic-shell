@@ -1,4 +1,0 @@
-DTA=/home/ryan
-DTA1=/Doc/$DTA
-DTA2=$DTA/$DTA1//$DTA1$DTA1 />
-DTA3=/Downloads

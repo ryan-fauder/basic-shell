@@ -27,15 +27,6 @@ void parser_limpa();
 void parser_amb(Env *env, Reader * reader, char * command);
 
 /**
- * @brief Trata o comando amb e escolhe a funcao adequada para o subtipo de amb
- * 
- * @param env: Env *
- * @param reader: Reader *
- * @param command: char *
- */
-void parser_amb_set(Env *env, Reader *reader, char * command);
-
-/**
  * @brief Trata o comando para imprimir ajuda
  * 
  */

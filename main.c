@@ -14,6 +14,7 @@
 #include "shell.h"
 
 extern int _COMMAND_SIZE;
+extern char _ENV_FILENAME[];
 
 
 int main(int argc, char const *argv[])
@@ -24,7 +25,7 @@ int main(int argc, char const *argv[])
   // env_test();
   
   // History
-  Env * env = env_create();
+  Env * env = env_read(_ENV_FILENAME);
   History * history = history_create();
   FILE * stream;
   char * hostname = str_alloc();
@@ -53,7 +54,6 @@ int main(int argc, char const *argv[])
   }
   interpreter(env, history, stream);
   history_print(history);
-  history_write(history);
-  // env_write(env);
+  env_write(env, _ENV_FILENAME);
   return 0;
 }
