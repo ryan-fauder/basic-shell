@@ -37,7 +37,7 @@ void command_amb_getAll(Env * env) {
   }
 }
 void command_amb_getVar(Env * env, char * nameVar) {
-  printf("%s\n", env_getVar(env, nameVar));
+  printf("- %s=%s\n", nameVar, env_getVar(env, nameVar));
 }
 void command_amb_setVar(Env * env, char * nameVar, char * valueVar) {
   env_setVar(env, nameVar, valueVar);
