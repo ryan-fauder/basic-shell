@@ -9,7 +9,7 @@ extern const int _HISTORY_INITIAL_CAPACITY;
 
 void history_setRecord(History *history, char *record)
 {
-  // If last_record == record, so dont change the record
+  // Se last_record == record, entao nao altera o record
   if (strcmp(history_getRecord(history), record) == 0)
     return;
 
@@ -48,9 +48,6 @@ History *history_read()
 
   if (stream == NULL)
   {
-    printf("CREATING FILE FOR HISTORY\n");
-    fclose(stream);
-
     stream = fopen(_HISTORY_FILENAME, "w");
     fclose(stream);
     
@@ -65,7 +62,7 @@ History *history_read()
     fscanf(stream, "%*c");
     if (buffer == NULL)
     {
-      printf("ERROR - HISTORY - COMMAND NOT FOUND ON READING FILE\n");
+      printf("ERROR - HISTORY - COMANDO NAO PODE SER RECONHECIDO NO ARQUIVO DE HISTORICO\n");
       fclose(stream);
       return NULL;
     }
@@ -73,9 +70,9 @@ History *history_read()
   }
 
   if (!feof(stream)){
-    // IF IT'S NOT THE EOF
-    printf("ERROR - HISTORY - WRONG FORMAT FOR HISTORY FILE\n");
-    // RETURNS HISTORY
+    // Se nao ha em EOF
+    printf("ERROR - HISTORY - FORMATO INVALIDO PARA ARQUIVO HISTORY\n");
+    // Retorna o history
   }
 
   fclose(stream);
@@ -92,7 +89,7 @@ void history_write(History *history)
     char *command = stack_at(history->stack, i);
     if (command == NULL)
     {
-      printf("ERROR - HISTORY - COMMAND NOT FOUND IN STACK");
+      printf("ERROR - HISTORY - COMANDO NAO ENCONTRADO NA PILHA");
       return;
     }
     fprintf(stream, "%s\n", command);

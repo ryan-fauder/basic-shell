@@ -1,5 +1,4 @@
 HOST=ryan-pc
-SHELL=36728
-DTA=/mnt/DiskD/Programming/Estudos/basic-shell
+SHELL=39501
+DTA=/mnt/DiskD/Programming
 PRONTO=$DTA \>
-DTA1=$DTA/$PRONTO

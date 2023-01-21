@@ -1,3 +1,4 @@
-amb PRONTO="DIR >"
-SAIR
+cd ..
+cd Programming
+amb
 sair

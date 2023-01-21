@@ -75,6 +75,7 @@ Env *env_read(char *nameFile)
   {
     stream = fopen(nameFile, "w");
     fclose(stream);
+    return env;
   }
   char *buffer = str_alloc();
   while (fscanf(stream, "%[^\n]", buffer) == 1)
@@ -87,6 +88,7 @@ Env *env_read(char *nameFile)
     env_setVar(env, key, value);
   }
 
+  fclose(stream);
   return env;
 }
 

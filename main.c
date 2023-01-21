@@ -2,9 +2,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
-#include <sysexits.h>
-#include <errno.h>
-#include <sys/wait.h>
 #include <ctype.h>
 #include "historico.h"
 #include "map.h"
@@ -19,12 +16,6 @@ extern char _ENV_FILENAME[];
 
 int main(int argc, char const *argv[])
 {
-  // history_test();
-  // map_test();
-  // pair_test();
-  // env_test();
-  
-  // History
   Env * env = env_read(_ENV_FILENAME);
   History * history = history_create();
   FILE * stream;
@@ -49,11 +40,12 @@ int main(int argc, char const *argv[])
     stream = fopen(filename, "r+");
   }
   else{
-    printf("ERROR - MORE PARAMATERS THAN EXPECTED\n");
+    printf("ERROR - MAIS PARAMETROS DO QUE ESPERADOS\n");
     return 0;
   }
+
   interpreter(env, history, stream);
-  history_print(history);
+  history_write(history);
   env_write(env, _ENV_FILENAME);
   return 0;
 }
