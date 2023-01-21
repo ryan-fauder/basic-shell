@@ -22,7 +22,6 @@ char * remove_char(char *str, char charRemove) {
   return newStr;
 }
 
-
 char * str_get(char *str){
   char *buffer = (char *) malloc(_COMMAND_SIZE);
   strcpy(buffer, str);

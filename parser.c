@@ -72,12 +72,7 @@ void parser_amb(Env *env, Reader *reader, char *command)
     command_amb_getAll(env);
     return;
   }
-  reader_print(reader);
-  // amb $VAR
-  // amb VAR=VALUE
-  // amb VAR="VALUE"
   Reader *assign = tokenize1(reader->tokens[1], '=');
-  reader_print(assign);
   if (assign->length == 1)
   {
     char *var_name = reader->tokens[1];
@@ -91,9 +86,11 @@ void parser_amb(Env *env, Reader *reader, char *command)
     command_amb_getVar(env, key);
   }
   else if(assign->length == 2){
-    // Check about spaces into "".
     char *var_name = str_get(assign->tokens[0]);
     char *var_value = str_get(assign->tokens[1]);
+    if(var_value[0] == '\"'){
+      var_value = remove_char(var_value, '\"');
+    }
     command_amb_setVar(env, var_name, var_value);
   }
   else{
