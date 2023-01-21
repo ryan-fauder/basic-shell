@@ -14,15 +14,22 @@
 #include <errno.h>
 
 void command_ajuda() {
+  printf("\n");
+  printf("==================== MANUAL DA SHELL ====================\n\n");
   char *help[] = {
     "limpa", "Limpar o terminal",
     "Ajuda", "Para pedir ajuda digite ajuda",
     "cd", "Comando para mudar de diretorio",
     "sair", "Finaliza a execucao",
+    "Variavels de Ambiente", "Para setar uma variavel de ambiente basta digitar amb NOME_VARIAVEL=\"CONTEUDO\"",
+    "Exibir Variaveis de Ambiente", "Para exibir as variaveis de ambiente disponiveis digitar amb $NOME_VARIAVEL",
+    "Listar Variaveis de Ambiente", "Para exibir todas as variaveis de ambiente entre com o comando amb",
+    "Comandos Externos", "A shell tambem aceita comandos externos do linux"
   };
 
-  for (int i = 0; i < 6; i+=2){
+  for (int i = 0; i < 16; i+=2){
     printf("- %s : %s\n", help[i], help[i+1]);
+    printf("\n");
   }
   
   return ;
