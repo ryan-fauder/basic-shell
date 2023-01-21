@@ -94,7 +94,7 @@ void parser_amb(Env *env, Reader *reader, char *command)
     command_amb_setVar(env, var_name, var_value);
   }
   else{
-    printf("ERROR: COMANDO NAO VALIDO\n");
+    printf("COMANDO NAO RECONHECIDO\n");
   }
 
   reader_free(assign);
@@ -116,7 +116,7 @@ void parser_changeDir(Env *env, Reader *reader)
 {
   if (reader->length < 2)
   {
-    printf("ERROR: COMANDO INVALIDO");
+    printf("COMANDO NAO RECONHECIDO");
     return;
   }
   char *current_dir = env_getVar(env, "DTA");
