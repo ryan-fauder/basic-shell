@@ -18,7 +18,7 @@ char parser_controller(Env *env, char *command)
   {
     if (reader->length > 2)
     {
-      printf("COMMAND NOT FOUND: %s", command);
+      printf("COMANDO NAO ENCONTRADO: %s", command);
       reader_free(reader);
       return 1;
     }
@@ -28,7 +28,7 @@ char parser_controller(Env *env, char *command)
   {
     if (reader->length > 1)
     {
-      printf("COMMAND NOT FOUND: %s", command);
+      printf("COMANDO NAO ENCONTRADO: %s", command);
       reader_free(reader);
       return 1;
     }
@@ -38,7 +38,7 @@ char parser_controller(Env *env, char *command)
   {
     if (reader->length > 1)
     {
-      printf("COMMAND NOT FOUND: %s", command);
+      printf("COMANDO NAO ENCONTRADO: %s", command);
       reader_free(reader);
       return 1;
     }
@@ -48,7 +48,7 @@ char parser_controller(Env *env, char *command)
   {
     if (reader->length > 1)
     {
-      printf("COMMAND NOT FOUND: %s", command);
+      printf("COMANDO NAO ENCONTRADO: %s", command);
       reader_free(reader);
       return 1;
     }

@@ -21,12 +21,12 @@ char *env_getVar(Env *env, char *key)
 {
   char *value = NULL;
   if(key == NULL){
-    printf("ERROR - GET A VALUE FROM ENV WITH A NULL KEY");
+    printf("ERRO - VALOR DE ENV COM UMA CHAVE NULA");
     return NULL;
   }
   value = map_get(env->varmap, key);
   if(value == NULL){
-    printf("ERROR - GOT A NULL VALUE FROM ENV");
+    printf("ERRO - OBTEVE UM VALOR NULO DE ENV");
     return NULL;
   }
   return env_resolveVar(env, value);
@@ -51,7 +51,7 @@ void env_write(Env *env, char *nameFile)
   FILE *stream = fopen(nameFile, "w+");
   if (stream == NULL)
   {
-    printf("Error - Cannot write a env");
+    printf("Erro - NAO FOI POSSIVEL ESCREVER UM ENV");
     fclose(stream);
   }
   int i;
